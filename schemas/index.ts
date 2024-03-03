@@ -30,5 +30,12 @@ export const RegisterSchema = z
     (values) => {
       return values.password === values.confirmPassword;
     },
-    { message: "Passordene samvarer ikke", path: ["confirmPassword"] }
+    { message: "Passordene samvarer ikke", path: ["confirmPassword"] },
   );
+
+export const UpdateOwnProfileSchema = z.object({
+  username: z.string().min(3, "Et brukernavn på minst tre tegn er påkrevd"),
+  role: z.enum([UserRole.ADMIN, UserRole.USER], {
+    errorMap: () => ({ message: "Ugyldig brukerrolle" }),
+  }),
+});

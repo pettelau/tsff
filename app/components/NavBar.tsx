@@ -12,10 +12,8 @@ import {
   NavbarMenu,
   NavbarMenuItem,
 } from "@nextui-org/react";
-import Image from "next/image";
 import { AUTH_ROUTES } from "@/lib/routes";
-// import { SignInButton, SignOutButton } from "./authButtons";
-// import AuthCheck from "./AuthCheck";
+import { useCurrentUser } from "@/hooks/use-current-user";
 
 export default function NavBar() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
@@ -25,6 +23,8 @@ export default function NavBar() {
   const router = useRouter();
 
   const isAuthRoute = AUTH_ROUTES.includes(pathname);
+
+  const user = useCurrentUser();
 
   const menuItems = [
     { display: "Seriespill 23/24", href: "/serie" },
@@ -65,21 +65,29 @@ export default function NavBar() {
                 </Link>
               </NavbarItem>
             ))}
-            <NavbarItem>
-              {/* <AuthCheck>
-            <Button as={Link} color="primary" href="/profil" variant="flat">
-              Profile
-            </Button>
-          </AuthCheck> */}
-            </NavbarItem>
-            {/* <AuthCheck>
-          <NavbarItem>
-            <SignOutButton />
-          </NavbarItem>
-        </AuthCheck> */}
           </NavbarContent>
+          <NavbarContent justify="end">
+            {user ? (
+              <NavbarItem>
+                <Button as={Link} color="primary" href="/profil" variant="flat">
+                  {user.username}
+                </Button>
+              </NavbarItem>
+            ) : (
+              <NavbarItem>
+                <Button
+                  onClick={() => {
+                    router.push("/auth/login");
+                  }}
+                >
+                  Logg inn
+                </Button>
+              </NavbarItem>
+            )}
+          </NavbarContent>
+
           <NavbarItem></NavbarItem>
-          <NavbarMenu className="mt-5">
+          <NavbarMenu className="">
             {menuItems.map((item, index) => (
               <NavbarMenuItem key={`${item}-${index}`}>
                 <Link

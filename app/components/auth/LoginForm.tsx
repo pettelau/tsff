@@ -32,8 +32,6 @@ export const LoginForm = () => {
   const onSubmit = (values: z.infer<typeof LoginSchema>) => {
     setError("");
 
-    console.log("here");
-
     startTransition(() => {
       login(values, callbackUrl)
         .then((data) => {

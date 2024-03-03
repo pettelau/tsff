@@ -21,7 +21,7 @@ export const AUTH_ROUTES = [
  */
 
 export const USER_ROUTES = [
-    "/profile"
+    "/profil"
   ];
 
 /**

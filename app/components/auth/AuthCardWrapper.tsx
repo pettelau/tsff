@@ -38,7 +38,6 @@ export const AuthCardWrapper: React.FC<CustomCardWrapperProps> = ({
           <Button
             variant="light"
             onClick={() => {
-              console.log("hello");
               router.push(backButtonHref);
             }}
           >
