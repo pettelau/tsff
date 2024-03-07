@@ -1,13 +1,13 @@
 version: '3'
 services:
   postgres:
-    container_name: new_tsff
+    container_name: tsff
     image: postgres:14
     restart: always
     environment:
       POSTGRES_USER: root
       POSTGRES_PASSWORD: password
-      POSTGRES_DB: new_tsff
+      POSTGRES_DB: tsff
       POSTGRES_HOST: postgres
     ports:
       - '5432:5432'
