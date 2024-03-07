@@ -22,7 +22,7 @@ export const Social = () => {
       <Button
       startContent={<FcGoogle className="h-5 w-5" />}
         size="lg"
-        className="w-full"
+        className="w-full text-primary-900"
         variant="bordered"
         onClick={() => onSocialLoginClick("google")}
       >

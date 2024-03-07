@@ -26,7 +26,7 @@ export const LoginForm = () => {
         email: "",
         password: "",
       },
-    }
+    },
   );
 
   const onSubmit = (values: z.infer<typeof LoginSchema>) => {
@@ -46,7 +46,7 @@ export const LoginForm = () => {
 
   return (
     <AuthCardWrapper
-      headerLabel="Logg inn"
+      headerLabel="Logg inn på TSFF"
       backButtonLabel="Har du ikke en bruker?"
       backButtonHref="/auth/register"
       showSocial
@@ -77,6 +77,7 @@ export const LoginForm = () => {
             name="password"
             render={({ field, fieldState }) => (
               <Input
+                className="text"
                 fullWidth
                 variant="bordered"
                 isDisabled={isPending}

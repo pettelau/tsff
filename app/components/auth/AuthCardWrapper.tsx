@@ -27,7 +27,7 @@ export const AuthCardWrapper: React.FC<CustomCardWrapperProps> = ({
 }) => {
   const router = useRouter();
   return (
-    <Card className="w-[400px] shadow-md">
+    <Card className="w-[400px] shadow-md bg-white">
       <CardHeader className="flex flex-row justify-center pt-8">
         <h2 className="h2">{headerLabel}</h2>
       </CardHeader>
@@ -37,6 +37,7 @@ export const AuthCardWrapper: React.FC<CustomCardWrapperProps> = ({
           {showSocial && <Social />}
           <Button
             variant="light"
+            className="text-primary-900"
             onClick={() => {
               router.push(backButtonHref);
             }}
