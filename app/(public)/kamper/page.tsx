@@ -1,5 +1,5 @@
 const MatchesPage = () => {
-  return <div>Matches Page</div>;
+  return <div>Seriespill 2023/2024</div>;
 };
 
 export default MatchesPage;
