@@ -4,7 +4,6 @@ import { UserRole } from "@prisma/client";
 import authConfig from "@/auth.config";
 
 import { getUserById } from "@/data/user";
-import { getAccountByUserId } from "./data/account";
 import { db } from "./lib/db";
 
 export const {
@@ -32,7 +31,6 @@ export const {
       if (session.user) {
         session.user.username = token.username as string;
         session.user.email = token.email as string;
-        session.user.isOAuth = token.isOAuth as boolean;
       }
 
       return session;
@@ -44,9 +42,7 @@ export const {
 
       if (!existingUser) return token;
 
-      const existingAccount = await getAccountByUserId(existingUser.id);
 
-      token.isOAuth = !!existingAccount;
       token.username = existingUser.username;
       token.email = existingUser.email;
       token.role = existingUser.role;

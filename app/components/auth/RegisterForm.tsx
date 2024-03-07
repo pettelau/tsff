@@ -50,7 +50,6 @@ export const RegisterForm = () => {
       headerLabel="Registrer bruker"
       backButtonLabel="Har du allerede en bruker?"
       backButtonHref="/auth/login"
-      showSocial
     >
       <form
         onSubmit={handleSubmit(onSubmit)}

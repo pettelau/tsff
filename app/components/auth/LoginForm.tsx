@@ -49,7 +49,6 @@ export const LoginForm = () => {
       headerLabel="Logg inn på TSFF"
       backButtonLabel="Har du ikke en bruker?"
       backButtonHref="/auth/register"
-      showSocial
     >
       {error && error}
       <form

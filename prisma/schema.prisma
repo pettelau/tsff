@@ -13,34 +13,47 @@ enum UserRole {
   USER
 }
 
-model User {
-  id            String    @id @default(cuid())
-  username      String    @unique
-  email         String?   @unique
-  emailVerified DateTime?
-  image         String?
-  password      String?
-  role          UserRole  @default(USER)
-  accounts      Account[]
+enum Position {
+  KEEPER
+  BACK
+  CENTRE_BACK
+  MIDTFIELDER
+  WINGER
+  STRIKER
 }
 
-model Account {
-  id                String  @id @default(cuid())
-  userId            String
-  type              String
-  provider          String
-  providerAccountId String
-  refresh_token     String? @db.Text
-  access_token      String? @db.Text
-  expires_at        Int?
-  token_type        String?
-  scope             String?
-  id_token          String? @db.Text
-  session_state     String?
+enum MatchEventType {
+  GOAL
+  YELLOW_CARD
+  RED_CARD
+}
 
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+enum Venue {
+  TEMPE_KUNSTGRESS
+  TEMPE_HOVEDBANE
+  OTHER
+}
 
-  @@unique([provider, providerAccountId])
+enum CompetitionType {
+  AVDELING_A
+  AVDELING_B
+  AVDELING_C
+  A_SLUTTSPILL
+  B_SLUTTSPILL
+  C_SLUTTSPILL
+  D_SLUTTSPILL
+  E_SLUTTSPILL
+  FRIENDLY
+}
+
+model User {
+  id          String   @id @default(cuid())
+  username    String   @unique
+  email       String?  @unique
+  password    String?
+  role        UserRole @default(USER)
+  relatedClub Club?    @relation(fields: [clubId], references: [id])
+  clubId      Int?
 }
 
 model PasswordResetToken {
@@ -50,4 +63,86 @@ model PasswordResetToken {
   expires DateTime
 
   @@unique([email, token])
+}
+
+model Club {
+  id          Int     @id @default(autoincrement())
+  name        String  @unique
+  instagram   String?
+  coefficient Int?
+
+  users                    User[]
+  players                  Player[]
+  homeMatches              Match[]                    @relation("HomeTeam")
+  awayMatches              Match[]                    @relation("AwayTeam")
+  match                    Match[]                    @relation("ResponsibleRefereeClub")
+  competitionParticipation CompetitionParticipation[]
+}
+
+model Competition {
+  id                       Int                        @id @default(autoincrement())
+  type                     CompetitionType
+  year                     Int
+  competitionRound         CompetitionRound[]
+  competitionParticipation CompetitionParticipation[]
+}
+
+model CompetitionRound {
+  id            Int         @id @default(autoincrement())
+  round         Int
+  competitionId Int
+  competition   Competition @relation(fields: [competitionId], references: [id], onDelete: Cascade)
+  match         Match[]
+
+  @@unique([round, competitionId])
+}
+
+model CompetitionParticipation {
+  clubId        Int
+  competitionId Int
+  club          Club        @relation(fields: [clubId], references: [id], onDelete: Cascade)
+  competition   Competition @relation(fields: [competitionId], references: [id], onDelete: Cascade)
+
+  @@id([clubId, competitionId])
+  @@unique([clubId, competitionId])
+}
+
+model Match {
+  id                       Int              @id @default(autoincrement())
+  competitionRoundId       Int
+  kickoffTime              DateTime?
+  venue                    Venue?
+  homeClubId               Int
+  awayClubId               Int
+  homeGoals                Int?
+  awayGoals                Int?
+  isMatchEventsConfirmed   Boolean          @default(false)
+  responsibleRefereeClubId Int
+  competitionRound         CompetitionRound @relation(fields: [competitionRoundId], references: [id])
+  homeTeam                 Club             @relation(name: "HomeTeam", fields: [homeClubId], references: [id])
+  awayTeam                 Club             @relation(name: "AwayTeam", fields: [awayClubId], references: [id])
+  responsibleRefereeClub   Club             @relation(name: "ResponsibleRefereeClub", fields: [responsibleRefereeClubId], references: [id])
+  matchEvent               MatchEvent[]
+}
+
+model Player {
+  id          Int          @id @default(autoincrement())
+  nifId       Int?         @unique
+  firstName   String
+  lastName    String?
+  email       String?
+  position    Position?
+  isActive    Boolean      @default(true)
+  clubId      Int?
+  relatedClub Club?        @relation(fields: [clubId], references: [id], onDelete: SetNull)
+  MatchEvent  MatchEvent[]
+}
+
+model MatchEvent {
+  id       Int            @id @default(autoincrement())
+  type     MatchEventType
+  matchId  Int
+  playerId Int
+  match    Match          @relation(fields: [matchId], references: [id], onDelete: Cascade)
+  player   Player         @relation(fields: [playerId], references: [id], onDelete: Cascade)
 }

@@ -7,14 +7,12 @@ import {
   CardBody,
   CardFooter,
 } from "@nextui-org/react";
-import { Social } from "./SocialLogins";
 import { useRouter } from "next/navigation";
 
 interface CustomCardWrapperProps {
   headerLabel: string;
   backButtonLabel: string;
   backButtonHref: string;
-  showSocial?: boolean;
   children: React.ReactNode;
 }
 
@@ -22,7 +20,6 @@ export const AuthCardWrapper: React.FC<CustomCardWrapperProps> = ({
   headerLabel,
   backButtonLabel,
   backButtonHref,
-  showSocial = false,
   children,
 }) => {
   const router = useRouter();
@@ -34,7 +31,6 @@ export const AuthCardWrapper: React.FC<CustomCardWrapperProps> = ({
       <CardBody>{children}</CardBody>
       <CardFooter>
         <div className="flex flex-col w-full space-y-3">
-          {showSocial && <Social />}
           <Button
             variant="light"
             className="text-primary-900"
