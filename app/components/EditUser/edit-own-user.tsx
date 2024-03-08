@@ -9,8 +9,7 @@ import { Input, Button, Select, SelectItem } from "@nextui-org/react";
 
 import { z } from "zod";
 import { useCurrentUser } from "@/hooks/use-current-user";
-import { $Enums, UserRole } from "@prisma/client";
-import { userRolesList } from "@/lib/utils";
+import { userRolesList } from "@/lib/enum-mappings";
 import { updateOwnProfile } from "@/actions/update-own-profile";
 import { useRouter } from "next/navigation";
 type EditProfileProps = z.infer<typeof UpdateOwnProfileSchema>;

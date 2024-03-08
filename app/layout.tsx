@@ -25,7 +25,9 @@ export default async function RootLayout({ children }: Props) {
             <div className="sm:mb-5 mb-2">
               <NavBar />
             </div>
+            <div className="flex items-center justify-center">
             {children}
+            </div>
           </main>
         </Providers>
       </body>

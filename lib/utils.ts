@@ -1,17 +1,17 @@
-import { UserRole } from "@prisma/client";
+import { SemesterType, UserRole } from "@prisma/client";
 
 
-// Mapping of Enums to usable TS types:
-
-// User roles mapping
-export const userRolesMap = {
-  [UserRole.ADMIN]: { label: "Administrator" },
-  [UserRole.USER]: { label: "Bruker" },
+export const getCurrentSemesterType = () => {
+  return new Date().getMonth() >= 6 ? SemesterType.AUTUMN : SemesterType.SPRING;
 };
 
-export const userRolesList = Object.entries(userRolesMap).map(
-  ([type, { label }]) => ({
-    type,
-    label,
-  }),
-) satisfies { type: string; label: string }[];
+export const getCurrentYear = () => {
+  return new Date().getFullYear();
+};
+
+export const getCurrentSeason = () => {
+  const year = getCurrentYear();
+  return getCurrentSemesterType() === SemesterType.AUTUMN
+    ? `${year}/${year + 1}`
+    : `${year - 1}/${year}`;
+};

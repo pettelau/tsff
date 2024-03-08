@@ -4,6 +4,7 @@ import {
   Position,
   MatchEventType,
   CompetitionType,
+  SemesterType,
 } from "@prisma/client";
 import { addDays, subDays } from "date-fns";
 
@@ -54,6 +55,7 @@ async function seed() {
     data: {
       type: CompetitionType.AVDELING_A,
       year: 2023,
+      semester: SemesterType.AUTUMN,
     },
   });
 
@@ -61,6 +63,7 @@ async function seed() {
     data: {
       type: CompetitionType.AVDELING_B,
       year: 2023,
+      semester: SemesterType.AUTUMN,
     },
   });
 
