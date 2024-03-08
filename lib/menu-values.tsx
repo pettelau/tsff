@@ -6,7 +6,7 @@ import { GoGoal } from "react-icons/go";
 
 export const competitionMenuTabs = [
   { name: "Kamper", href: "/serie", icon: <MdOutlineScoreboard /> },
-  { name: "Tabeller", href: "/serie/tables", icon: <FaTableList /> },
+  { name: "Tabeller", href: "/serie/tabeller", icon: <FaTableList /> },
   { name: "Stats", href: "/serie/stats", icon: <GoGoal /> },
   { name: "Sluttspill", href: "/serie/sluttspill", icon: <LuTrophy /> },
 ];

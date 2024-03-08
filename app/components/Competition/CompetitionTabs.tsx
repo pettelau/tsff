@@ -1,5 +1,6 @@
 "use client";
 import { competitionMenuTabs } from "@/lib/menu-values";
+import { cn } from "@/lib/utils";
 import { Tab, Tabs } from "@nextui-org/tabs";
 import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
@@ -24,7 +25,10 @@ export const CompetitionTabs = () => {
         {competitionMenuTabs.map((tab) => {
           return (
             <Tab
-              className="h-[80px] w-[120px]"
+              className={cn(
+                "h-[80px] w-[120px]",
+                tab.href === "/serie/tabeller" && "sm:hidden",
+              )}
               key={tab.href}
               title={
                 <div className="flex flex-col items-center justify-center">
