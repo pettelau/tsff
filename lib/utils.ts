@@ -1,10 +1,10 @@
 import { SemesterType, UserRole } from "@prisma/client";
 
-import { type ClassValue, clsx } from "clsx"
-import { twMerge } from "tailwind-merge"
+import { type ClassValue, clsx } from "clsx";
+import { twMerge } from "tailwind-merge";
 
 export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs))
+  return twMerge(clsx(inputs));
 }
 
 export const getCurrentSemesterType = () => {
@@ -20,4 +20,15 @@ export const getCurrentSeason = () => {
   return getCurrentSemesterType() === SemesterType.AUTUMN
     ? `${year}/${year + 1}`
     : `${year - 1}/${year}`;
+};
+
+export const getResultColor = (res: "W" | "D" | "L") => {
+  switch (res) {
+    case "W":
+      return "bg-green-400";
+    case "D":
+      return "bg-gray-400";
+    case "L":
+      return "bg-red-400";
+  }
 };
