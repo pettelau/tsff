@@ -18,7 +18,7 @@ export const CompetitionTabs = () => {
   return (
     <div>
       <Tabs
-        className="h-[80px] space-x-4"
+        className="h-[50px] space-x-4"
         selectedKey={activeTab}
         onSelectionChange={handleTabChange}
       >
@@ -26,13 +26,13 @@ export const CompetitionTabs = () => {
           return (
             <Tab
               className={cn(
-                "h-[80px] w-[120px]",
+                "h-[50px] w-[120px]",
                 tab.href === "/serie/tabeller" && "sm:hidden",
               )}
               key={tab.href}
               title={
                 <div className="flex flex-col items-center justify-center">
-                  <div className="text-[40px]">{tab.icon}</div>
+                  <div className="text-[25px]">{tab.icon}</div>
                   <div>{tab.name}</div>
                 </div>
               }

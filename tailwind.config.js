@@ -18,13 +18,17 @@ module.exports = {
         "2xl": "1400px",
       },
     },
-    extend: {},
+    extend: {
+      screens: {
+        xmd: "900px",
+      },
+    },
   },
   darkMode: "class",
   plugins: [
     nextui({
       themes: {
-        "tsff": {
+        tsff: {
           // Name your theme as desired
           extend: "dark", // Inherit from the dark theme
           colors: {
@@ -35,27 +39,19 @@ module.exports = {
               200: "#9EBDF3",
               300: "#7BA4EF",
               400: "#577BEA",
-              500: "#0F2443", // Main primary color
-              600: "#0D1E36",
-              700: "#0B1829",
-              800: "#09121C",
-              900: "#070C0F",
-              DEFAULT: "#0F2443", // Set default primary color
+              500: "#195348", // Main primary color
+              600: "#2A8977",
+              700: "#65b891",
+              800: "#93e5ab",
+              900: "#DCFAEE",
+              DEFAULT: "#195348", // Set default primary color
             },
             secondary: {
-              50: "#FDE6E5",
-              100: "#FBC6C4",
-              200: "#F9A6A3",
-              300: "#F78682",
-              400: "#F56661",
-              500: "#CB4443", // Main secondary color
-              600: "#B33C3B",
-              700: "#9B3433",
-              800: "#832C2B",
-              900: "#6B2423",
-              DEFAULT: "#CB4443", // Set default secondary color
+              // Set default secondary color
             },
-            // Define other theme properties as needed
+            background: {
+              DEFAULT: "#00130E",
+            },
           },
         },
       },
