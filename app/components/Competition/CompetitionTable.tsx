@@ -1,20 +1,16 @@
-import { getCompetitionClubs } from "@/data/getCompetitionClubs";
-import { getCompetitionMatchesWithResults } from "@/data/getCompetitionMatchesWithResults";
 import { cn, getResultColor } from "@/lib/utils";
-import { generateTable } from "@/services/generate-table-data";
+
+import { CompetitionTeam } from "@/types/types";
 import { Tooltip } from "@nextui-org/tooltip";
 import { format } from "date-fns";
 import { nb } from "date-fns/locale";
 
 type CompetitionTableProps = {
-  competitionId: number;
+  tableData: CompetitionTeam[];
 };
 export const CompetitionTable = async ({
-  competitionId,
+  tableData,
 }: CompetitionTableProps) => {
-  const compMatches = await getCompetitionMatchesWithResults(competitionId);
-  const compClubs = await getCompetitionClubs(competitionId);
-  const tableData = generateTable(compMatches, compClubs);
   return (
     <table className="table-auto w-full font-light text-sm small-table-spacing xl:table-spacing">
       <thead>

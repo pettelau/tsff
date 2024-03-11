@@ -1,9 +1,13 @@
 import { CompetitionTable } from "@/app/components/Competition/CompetitionTable";
 import { CompetitionTabs } from "@/app/components/Competition/CompetitionTabs";
 import { getActiveCompetitions } from "@/data/getActiveCompetitions";
+import { getCompetitionClubs } from "@/data/getCompetitionClubs";
+import { getCompetitionMatchesWithResults } from "@/data/getCompetitionMatchesWithResults";
+import { generateTable } from "@/services/generate-table-data";
 
 type CompetitionLayoutProps = {
   children: React.ReactNode;
+
 };
 
 const CompetitionLayout = async ({ children }: CompetitionLayoutProps) => {
@@ -14,16 +18,21 @@ const CompetitionLayout = async ({ children }: CompetitionLayoutProps) => {
         <div className="flex items-center justify-center">
           <CompetitionTabs />
         </div>
-        {children}
+        <div>{children}</div>
       </div>
       <div className="w-1/3 flex-col items-center justify-center hidden sm:flex space-y-2">
-        {activeCompetitions.map((comp) => {
+        {activeCompetitions.map(async (comp) => {
+          const compMatches = await getCompetitionMatchesWithResults(
+            comp.id,
+          );
+          const compClubs = await getCompetitionClubs(comp.id);
+          const tableData = generateTable(compMatches, compClubs);
           return (
             <div
               key={comp.id}
               className="w-full bg-primary rounded-xl text-center p-3 text-white"
             >
-              <CompetitionTable competitionId={comp.id} />
+              <CompetitionTable tableData={tableData} />
             </div>
           );
         })}

@@ -18,7 +18,7 @@ export const CompetitionTabs = () => {
   return (
     <div>
       <Tabs
-        className="h-[50px] space-x-4"
+        className="h-[70px] space-x-4"
         selectedKey={activeTab}
         onSelectionChange={handleTabChange}
       >
