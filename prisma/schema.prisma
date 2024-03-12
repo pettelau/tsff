@@ -132,16 +132,17 @@ model Match {
 }
 
 model Player {
-  id          Int          @id @default(autoincrement())
-  nifId       Int?         @unique
-  firstName   String
-  lastName    String?
-  email       String?
-  position    Position?
-  isActive    Boolean      @default(true)
-  clubId      Int?
-  relatedClub Club?        @relation(fields: [clubId], references: [id], onDelete: SetNull)
-  MatchEvent  MatchEvent[]
+  id                   Int          @id @default(autoincrement())
+  nifId                Int?         @unique
+  firstName            String
+  lastName             String?
+  email                String?
+  position             Position?
+  isActive             Boolean      @default(true)
+  hasPaidMembershipFee Boolean      @default(false)
+  clubId               Int?
+  relatedClub          Club?        @relation(fields: [clubId], references: [id], onDelete: SetNull)
+  MatchEvent           MatchEvent[]
 }
 
 model MatchEvent {
