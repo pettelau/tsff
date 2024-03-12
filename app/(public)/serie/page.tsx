@@ -8,17 +8,7 @@ import { Button } from "@nextui-org/button";
 const MatchesPage = async () => {
   const activeCompetitions = await getActiveCompetitions();
 
-  return (
-    <div className="flex flex-col items-center justify-center my-20 space-y-4">
-      <Button className="text-primary-900 bg-primary-600">Lagre</Button>
-      <Button color="secondary" className="">
-        Endre
-      </Button>
-      <Button color="danger" className="">
-        Avbryt
-      </Button>
-    </div>
-  );
+  return <div className="flex flex-col items-center justify-center"></div>;
 };
 
 export default MatchesPage;
