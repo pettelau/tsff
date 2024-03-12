@@ -39,3 +39,10 @@ export const UpdateOwnProfileSchema = z.object({
     errorMap: () => ({ message: "Ugyldig brukerrolle" }),
   }),
 });
+
+export const NIFSchema = z.object({
+  personId: z.string().transform(Number),
+  fornavn: z.string(),
+  etternavn: z.string(),
+  kontigent: z.string().transform((value) => value === "true" || value === "True"),
+});

@@ -29,11 +29,11 @@ export default async function RootLayout({ children }: Props) {
     <html lang="en">
       <body className={cn(space_grotesk.className, "")}>
         <Providers session={session}>
-          <main className="dark tsff">
+          <main className="">
             <div className="">
               <NavBar />
             </div>
-            <div className="flex items-center justify-center bg-background sm:pt-5 pt-2">
+            <div className="flex items-center justify-center  sm:pt-5 pt-2">
               {children}
             </div>
           </main>

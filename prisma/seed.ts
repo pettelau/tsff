@@ -245,8 +245,8 @@ async function seed() {
   // Player without club
   const player4 = await db.player.create({
     data: {
-      firstName: "Per",
-      lastName: "Knutsen",
+      firstName: "Olav",
+      lastName: "Jensen",
       email: "per@knutsen.no",
       position: Position.BACK,
       isActive: true,

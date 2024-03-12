@@ -6,7 +6,7 @@ html,
 body,
 :root {
     height: 100vh;
-    background-color: #00130E
+    /* background-color: #00130E */
   }
   
 @layer components {
