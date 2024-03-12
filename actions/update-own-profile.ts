@@ -12,8 +12,6 @@ export const updateOwnProfile = async (
 ) => {
   const validatedFields = UpdateOwnProfileSchema.safeParse(values);
 
-  console.log("hello");
-
   if (!validatedFields.success) {
     return { error: "Invalid fields!" };
   }
