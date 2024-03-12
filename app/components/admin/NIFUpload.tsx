@@ -150,7 +150,7 @@ export const NIFUpload = () => {
               description="Er du sikker på at du vil laste opp en ny CSV-fil og dermed risikere å overskrive eksisterende data?"
               onConfirm={() => validateAndUploadCSV(CSVFile)}
               title="Oppdater spillerdatabasen"
-              isDisabled={isPending}
+              isDisabled={isPending || !CSVFile}
             >
               Last opp og oppdater
             </ConfirmModal>
