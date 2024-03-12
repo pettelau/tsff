@@ -32,3 +32,7 @@ export const getResultColor = (res: "W" | "D" | "L") => {
       return "bg-red-400";
   }
 };
+
+export const isCSV = (file: File) => {
+  return file && file.name.endsWith(".csv");
+};

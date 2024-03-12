@@ -1,3 +1,4 @@
+import { NIFUpload } from "@/app/components/admin/NIFUpload";
 import { LogoutButton } from "@/app/components/auth/LogoutButton";
 import { GoToAdmin } from "@/app/components/buttons/goto-admin";
 import { EditOwnUserForm } from "@/app/components/EditUser/edit-own-user";
@@ -9,6 +10,8 @@ export const AdminPage = async () => {
   return (
     <div className="flex flex-col justify-center space-y-6 items-center">
       <h2 className="h2">Adminside</h2>
+      <NIFUpload />
+      <h3 className="h3"></h3>
     </div>
   );
 };
