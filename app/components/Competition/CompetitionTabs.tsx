@@ -18,7 +18,8 @@ export const CompetitionTabs = () => {
   return (
     <div>
       <Tabs
-        className="h-[70px] space-x-4"
+
+        className="h-[70px] space-x-4 w-full overflow-auto scrollbar-hide"
         selectedKey={activeTab}
         onSelectionChange={handleTabChange}
       >
@@ -26,7 +27,7 @@ export const CompetitionTabs = () => {
           return (
             <Tab
               className={cn(
-                "h-[50px] w-[120px]",
+                "h-[50px] sm:w-[120px]",
                 tab.href === "/serie/tabeller" && "sm:hidden",
               )}
               key={tab.href}

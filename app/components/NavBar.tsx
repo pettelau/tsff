@@ -104,10 +104,15 @@ export default function NavBar() {
             </NavbarBrand>
           </NavbarContent>
 
-          <NavbarContent className="hidden sm:flex gap-4" justify="start">
+          <NavbarContent
+            aria-label="Nav-content"
+            className="hidden sm:flex gap-4"
+            justify="start"
+          >
             {menuItems.map((item) =>
               !item.subItems ? (
                 <NavbarItem
+                  aria-label={item.display}
                   key={item.href}
                   isActive={pathname.startsWith(item.href)}
                 >
@@ -117,6 +122,7 @@ export default function NavBar() {
                 </NavbarItem>
               ) : (
                 <div
+                  aria-label={item.display}
                   key={item.href}
                   onMouseLeave={() => {
                     setOpenMenuItem(null);
@@ -126,7 +132,10 @@ export default function NavBar() {
                     isOpen={openMenuItem === item.href}
                     className="w-[200px]"
                   >
-                    <NavbarItem isActive={pathname.startsWith(item.href)}>
+                    <NavbarItem
+                      aria-label={item.display}
+                      isActive={pathname.startsWith(item.href)}
+                    >
                       <DropdownTrigger>
                         <Link
                           className="text-sm cursor-pointer"
@@ -151,6 +160,7 @@ export default function NavBar() {
                       </DropdownTrigger>
                     </NavbarItem>
                     <DropdownMenu
+                      aria-label={item.display}
                       closeOnSelect
                       className="w-[200px] mt-[-10px] pt-[14px]"
                       itemClasses={{
@@ -159,6 +169,7 @@ export default function NavBar() {
                     >
                       {item.subItems.map((subItem) => (
                         <DropdownItem
+                          aria-label={subItem.display}
                           className="text-xs"
                           key={subItem.href}
                           onClick={() => {

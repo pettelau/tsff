@@ -1,7 +1,9 @@
-import { CompetitionTable } from "@/app/components/Competition/CompetitionTable";
+import { CompetitionTableFullWidth } from "@/app/components/Competition/CompetitionTable-fullWidth";
 import { getActiveCompetitions } from "@/data/getActiveCompetitions";
 import { getCompetitionClubs } from "@/data/getCompetitionClubs";
 import { getCompetitionMatchesWithResults } from "@/data/getCompetitionMatchesWithResults";
+import { competitionTypesMap } from "@/lib/enum-mappings";
+import { getCurrentSeason } from "@/lib/utils";
 import { generateTable } from "@/services/generate-table-data";
 
 const ActiveTablesPage = async () => {
@@ -12,12 +14,14 @@ const ActiveTablesPage = async () => {
         const compMatches = await getCompetitionMatchesWithResults(comp.id);
         const compClubs = await getCompetitionClubs(comp.id);
         const tableData = generateTable(compMatches, compClubs);
+        const name =
+          competitionTypesMap[comp.type].label + " " + getCurrentSeason();
         return (
           <div
             key={comp.id}
             className="w-full bg-primary rounded-xl text-center p-3 text-white"
           >
-            <CompetitionTable tableData={tableData} />
+            <CompetitionTableFullWidth tableData={tableData} name={name} />
           </div>
         );
       })}
