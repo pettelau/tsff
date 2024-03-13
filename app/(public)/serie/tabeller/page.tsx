@@ -19,7 +19,7 @@ const ActiveTablesPage = async () => {
         return (
           <div
             key={comp.id}
-            className="w-full bg-primary rounded-xl text-center p-3 text-white"
+            className="w-full bg-primary rounded-xl text-center p-3 text-white sm:hidden"
           >
             <CompetitionTableFullWidth tableData={tableData} name={name} />
           </div>
