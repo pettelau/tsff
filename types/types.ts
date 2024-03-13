@@ -28,3 +28,8 @@ export type MatchWithTeams = Match & {
   homeTeam: Club;
   awayTeam: Club;
 };
+
+export type ServiceMenuT = {
+  name: string;
+  icon: JSX.Element;
+};

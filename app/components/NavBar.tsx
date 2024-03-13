@@ -130,13 +130,13 @@ export default function NavBar() {
                 >
                   <Dropdown
                     isOpen={openMenuItem === item.href}
-                    className="w-[200px]"
+                    className="w-[200px] hover:opacity-100"
                   >
                     <NavbarItem
                       aria-label={item.display}
                       isActive={pathname.startsWith(item.href)}
                     >
-                      <DropdownTrigger>
+                      <DropdownTrigger className="">
                         <Link
                           className="text-sm cursor-pointer"
                           color="foreground"
