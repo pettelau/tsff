@@ -1,6 +1,5 @@
-"use client";
-
 import { NotLoggedIn } from "@/app/components/Defaults/not-logged-in";
+import { ServiceClubInfo } from "@/app/components/service/ServiceClubInfo";
 import { ServiceMenu } from "@/app/components/service/service-menu";
 import { serviceMenuRenderer } from "@/app/components/service/service-menu-renderer";
 import { useCurrentUser } from "@/hooks/use-current-user";
@@ -14,12 +13,12 @@ interface Props {
   children: React.ReactNode;
 }
 
-const ProfileLayout = ({ children }: Props) => {
-  const user = useCurrentUser();
+const ProfileLayout = async ({ children }: Props) => {
+  const user = await currentUser();
 
-  const [selectedMenu, setSelectedMenu] = useState<ServiceMenuT["name"]>(
-    serviceMenuTabs[0].name,
-  );
+  // const [selectedMenu, setSelectedMenu] = useState<ServiceMenuT["name"]>(
+  //   serviceMenuTabs[0].name,
+  // );
 
   if (!user) {
     return redirect("/auth/login");
@@ -27,18 +26,16 @@ const ProfileLayout = ({ children }: Props) => {
     return (
       <>
         <div className="flex flex-col max-w-screen-xl space-y-4 mx-6 w-full">
-          <div className="w-full bg-red-300 rounded-lg text-center py-4">
-            TOP LEVEL INFO
+          <div className="w-full bg-purple-400 rounded-lg text-center py-4">
+            <ServiceClubInfo clubId={user.club} />
           </div>
 
           <div className="flex flex-col sm:flex-row space-x-0 sm:space-x-4 space-y-4 sm:space-y-0 w-full">
             <div className="w-full sm:w-1/4 xl:w-1/5 bg-blue-300 rounded-lg">
-              <ServiceMenu setSelectedMenu={setSelectedMenu} />
+              <ServiceMenu />
             </div>
 
-            <div className="w-full sm:w-3/4 xl:w-4/5 bg-green-300">
-              {serviceMenuRenderer(selectedMenu)}
-            </div>
+            <div className="w-full sm:w-3/4 xl:w-4/5 ">{children}</div>
           </div>
         </div>
       </>

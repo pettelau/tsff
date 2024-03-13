@@ -20,9 +20,9 @@ export const competitionMenuTabs = [
 ];
 
 export const serviceMenuTabs: ServiceMenuT[] = [
-  { name: "Kontaktinfo", icon: <MdContactPhone /> },
-  { name: "Spillertropp", icon: <HiUserGroup /> },
-  { name: "Spilte kamper", icon: <FaHistory /> },
-  { name: "Kommende kamper", icon: <MdOutlineScoreboard /> },
-  { name: "Beskjeder", icon: <IoNotifications /> },
+  { name: "Kontaktinfo", href: "/profil", icon: <MdContactPhone /> },
+  { name: "Spillertropp", href: "/profil/spillertropp", icon: <HiUserGroup /> },
+  { name: "Spilte kamper", href: "/profil/spilte-kamper", icon: <FaHistory /> },
+  { name: "Kommende kamper",href: "/profil/kommende-kamper", icon: <MdOutlineScoreboard /> },
+  { name: "Beskjeder", href: "/profil/beskjeder", icon: <IoNotifications /> },
 ];

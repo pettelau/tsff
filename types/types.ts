@@ -31,5 +31,6 @@ export type MatchWithTeams = Match & {
 
 export type ServiceMenuT = {
   name: string;
+  href: string;
   icon: JSX.Element;
 };
