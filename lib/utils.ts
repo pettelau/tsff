@@ -1,4 +1,4 @@
-import { SemesterType, UserRole } from "@prisma/client";
+import { GenderType, SemesterType, UserRole } from "@prisma/client";
 
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
@@ -35,4 +35,17 @@ export const getResultColor = (res: "W" | "D" | "L") => {
 
 export const isCSV = (file: File) => {
   return file && file.name.endsWith(".csv");
+};
+
+export const translateGender = (genderStr: string): GenderType => {
+  switch (genderStr) {
+    case "Mann":
+      console.log("OK");
+      return GenderType.MAN;
+    case "Kvinne":
+      console.log("OK");
+      return GenderType.WOMAN;
+    default:
+      return GenderType.MAN;
+  }
 };

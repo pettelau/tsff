@@ -64,6 +64,11 @@ export const NIFUpload = () => {
 
         // Iterate over each row in the CSV data
         results.data.forEach((row, index) => {
+          if (!row || Object.keys(row).length === 0) {
+            // Optionally, log skipped rows or handle them as needed
+            console.log(`Skipping empty or incomplete row at index ${index + 1}`);
+            return; // Skip this iteration
+          }
           const validated = NIFSchema.safeParse(row);
           if (!validated.success) {
             // If validation fails, add an error for this row

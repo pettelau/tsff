@@ -9,7 +9,7 @@ import { generateTable } from "@/services/generate-table-data";
 const ActiveTablesPage = async () => {
   const activeCompetitions = await getActiveCompetitions();
   return (
-    <div className="flex flex-col space-y-4 mx-5">
+    <div className="flex flex-col space-y-4 mx-5 sm:hidden">
       {activeCompetitions.map(async (comp) => {
         const compMatches = await getCompetitionMatchesWithResults(comp.id);
         const compClubs = await getCompetitionClubs(comp.id);

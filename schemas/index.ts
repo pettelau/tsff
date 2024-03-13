@@ -1,5 +1,6 @@
 import * as z from "zod";
-import { UserRole } from "@prisma/client";
+import { GenderType, UserRole } from "@prisma/client";
+import { translateGender } from "@/lib/utils";
 
 export const LoginSchema = z.object({
   email: z.string().min(1, { message: "E-post my fylles ut" }).email({
@@ -41,8 +42,15 @@ export const UpdateOwnProfileSchema = z.object({
 });
 
 export const NIFSchema = z.object({
-  personId: z.string().transform(Number),
-  fornavn: z.string(),
-  etternavn: z.string(),
-  kontigent: z.string().transform((value) => value === "true" || value === "True"),
+  PersonId: z.string().transform(Number),
+  Fornavn: z.string(),
+  Etternavn: z.string(),
+  Fødselsdato: z.string().transform((dateStr) => {
+    // Assuming the date format is "DD.MM.YYYY"
+    const [day, month, year] = dateStr.split(".");
+    return new Date(`${year}-${month}-${day}`);
+  }),
+  Kjønn: z.string().transform(translateGender),
+  // Epost: z.string().email(),
+  // kontigent: z.string().transform((value) => value === "true" || value === "True"),
 });

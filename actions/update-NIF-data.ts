@@ -6,6 +6,7 @@ import { z } from "zod";
 import { revalidateTag } from "next/cache";
 import { currentUser } from "@/lib/auth";
 import { UserRole } from "@prisma/client";
+import email from "next-auth/providers/email";
 
 export const updateNIFData = async (data: z.infer<typeof NIFSchema>[]) => {
   const user = await currentUser();
@@ -22,18 +23,24 @@ export const updateNIFData = async (data: z.infer<typeof NIFSchema>[]) => {
     for (const person of data) {
       const result = await db.player.upsert({
         where: {
-          nifId: person.personId,
+          nifId: person.PersonId,
         },
         create: {
-          nifId: person.personId,
-          firstName: person.fornavn,
-          lastName: person.etternavn,
-          hasPaidMembershipFee: person.kontigent,
+          nifId: person.PersonId,
+          firstName: person.Fornavn,
+          lastName: person.Etternavn,
+          dateOfBirth: person.Fødselsdato,
+          gender: person.Kjønn,
+          // email: person.Epost,
+          // hasPaidMembershipFee: person.kontigent,
         },
         update: {
-          firstName: person.fornavn,
-          lastName: person.etternavn,
-          hasPaidMembershipFee: person.kontigent,
+          firstName: person.Fornavn,
+          lastName: person.Etternavn,
+          dateOfBirth: new Date(person.Fødselsdato),
+          gender: person.Kjønn,
+          // email: person.Epost,
+          // hasPaidMembershipFee: person.Ko ntigent,
         },
       });
       if (result.createdAt.getTime() === result.updatedAt.getTime()) {

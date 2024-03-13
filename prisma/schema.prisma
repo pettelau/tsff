@@ -51,6 +51,11 @@ enum SemesterType {
   SPRING
 }
 
+enum GenderType {
+  MAN
+  WOMAN
+}
+
 model User {
   id          String   @id @default(cuid())
   username    String   @unique
@@ -135,9 +140,11 @@ model Player {
   id                   Int          @id @default(autoincrement())
   nifId                Int?         @unique
   firstName            String
+  dateOfBirth          DateTime?
   lastName             String?
   email                String?
   position             Position?
+  gender               GenderType?  @default(MAN)
   isActive             Boolean      @default(true)
   hasPaidMembershipFee Boolean      @default(false)
   clubId               Int?
