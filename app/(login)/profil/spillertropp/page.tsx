@@ -1,4 +1,4 @@
-import { PlayersAccordion } from "@/app/components/players-accordion";
+import { PlayersAccordion } from "@/app/components/players/players-accordion";
 import { getClubPlayers } from "@/data/getClubPlayers";
 import { currentUser } from "@/lib/auth";
 import { Card } from "@nextui-org/card";

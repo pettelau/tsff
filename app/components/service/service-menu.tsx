@@ -3,13 +3,19 @@ import { serviceMenuTabs } from "@/lib/menu-values";
 import { usePathname, useRouter } from "next/navigation";
 
 import Link from "next/link";
+import { useCurrentUser } from "@/hooks/use-current-user";
 
 export const ServiceMenu = () => {
   const pathname = usePathname();
+
+  const user = useCurrentUser();
   return (
     <div className="sm:flex sm:flex-col">
       <div className="grid grid-cols-2 sm:grid-cols-1">
         {serviceMenuTabs.map((menuItem) => {
+          if (user && typeof user.club !== "number" && menuItem.hideIfNoClub) {
+            return;
+          }
           return (
             <Link
               href={menuItem.href}

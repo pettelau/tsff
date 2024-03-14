@@ -9,9 +9,6 @@ import { HiUserGroup } from "react-icons/hi2";
 import { MdContactPhone } from "react-icons/md";
 import { ServiceMenuT } from "@/types/types";
 
-
-
-
 export const competitionMenuTabs = [
   { name: "Kamper", href: "/serie", icon: <MdOutlineScoreboard /> },
   { name: "Tabeller", href: "/serie/tabeller", icon: <FaTableList /> },
@@ -20,9 +17,34 @@ export const competitionMenuTabs = [
 ];
 
 export const serviceMenuTabs: ServiceMenuT[] = [
-  { name: "Kontaktinfo", href: "/profil", icon: <MdContactPhone /> },
-  { name: "Spillertropp", href: "/profil/spillertropp", icon: <HiUserGroup /> },
-  { name: "Spilte kamper", href: "/profil/spilte-kamper", icon: <FaHistory /> },
-  { name: "Kommende kamper",href: "/profil/kommende-kamper", icon: <MdOutlineScoreboard /> },
-  { name: "Beskjeder", href: "/profil/beskjeder", icon: <IoNotifications /> },
+  {
+    name: "Kontaktinfo",
+    href: "/profil",
+    icon: <MdContactPhone />,
+    hideIfNoClub: false,
+  },
+  {
+    name: "Spillertropp",
+    href: "/profil/spillertropp",
+    icon: <HiUserGroup />,
+    hideIfNoClub: true,
+  },
+  {
+    name: "Spilte kamper",
+    href: "/profil/spilte-kamper",
+    icon: <FaHistory />,
+    hideIfNoClub: true,
+  },
+  {
+    name: "Kommende kamper",
+    href: "/profil/kommende-kamper",
+    icon: <MdOutlineScoreboard />,
+    hideIfNoClub: true,
+  },
+  {
+    name: "Beskjeder",
+    href: "/profil/beskjeder",
+    icon: <IoNotifications />,
+    hideIfNoClub: false,
+  },
 ];
