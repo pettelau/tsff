@@ -50,44 +50,32 @@ export const NIFUpload = () => {
     }
 
     setError("");
-    // startTransition(() => {
-    //   updateNIFData(file);
-    // });
+
     Papa.parse(file, {
       header: true,
       skipEmptyLines: true,
       complete: async function (results) {
-        console.log(results.data);
-
         const errors: any[] = [];
         const validRows: z.infer<typeof NIFSchema>[] = [];
 
-        // Iterate over each row in the CSV data
         results.data.forEach((row, index) => {
           if (!row || Object.keys(row).length === 0) {
-            // Optionally, log skipped rows or handle them as needed
-            console.log(`Skipping empty or incomplete row at index ${index + 1}`);
-            return; // Skip this iteration
+            return;
           }
           const validated = NIFSchema.safeParse(row);
           if (!validated.success) {
-            // If validation fails, add an error for this row
             errors.push({ row: index + 1, error: validated.error });
           } else {
-            // If validation succeeds, add the row to validRows
             validRows.push(validated.data);
           }
         });
 
-        // Check if there were any validation errors
         if (errors.length > 0) {
-          // Handle the error case, e.g., by showing an error message
           console.error("Validation errors:", errors);
           setError("Ugyldig format på CSV-fil");
           return;
         }
 
-        // If all rows are valid, proceed with further processing
         startTransition(() => {
           setError(undefined);
           setRowsAdded(undefined);

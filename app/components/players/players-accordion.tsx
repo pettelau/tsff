@@ -34,9 +34,30 @@ export const PlayersAccordion = ({
               textValue={`${player.firstName} ${player.lastName}`}
               key={player.id}
               title={
-                <>
-                  {player.firstName} {player.lastName}
-                </>
+                <div className="flex flex-col sm:flex-row sm:flex-wrap justify-between sm:space-y-0 sm:space-x-2">
+                  <div>
+                    {player.firstName} {player.lastName}
+                  </div>
+                  <div className="flex flex-row space-x-2">
+                    {player.dateOfBirth &&
+                      format(new Date(), "MM-dd") ===
+                        format(new Date(player.dateOfBirth), "MM-dd") && (
+                        <div className="flex bg-sky-200 border-sky-400 border-medium text-xs items-center px-2 rounded-xl">
+                          🎂 Bursdag!
+                        </div>
+                      )}
+                    {!player.position && (
+                      <div className="flex border-orange-200 border-medium text-xs items-center px-2 rounded-xl">
+                        ⚠️ Mangler pos<span className="hidden sm:block">isjon</span>
+                      </div>
+                    )}
+                    {!player.hasPaidMembershipFee && (
+                      <div className="flex border-red-300 border-medium  text-xs items-center px-2 rounded-xl">
+                        💵 Ikke betalt
+                      </div>
+                    )}
+                  </div>
+                </div>
               }
             >
               <div className="flex flex-col space-y-2">

@@ -40,10 +40,8 @@ export const isCSV = (file: File) => {
 export const translateGender = (genderStr: string): GenderType => {
   switch (genderStr) {
     case "Mann":
-      console.log("OK");
       return GenderType.MAN;
     case "Kvinne":
-      console.log("OK");
       return GenderType.WOMAN;
     default:
       return GenderType.MAN;

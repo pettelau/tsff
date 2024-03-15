@@ -25,7 +25,7 @@ const ProfileLayout = async ({ children }: Props) => {
   } else {
     return (
       <>
-        <div className="flex flex-col max-w-screen-xl space-y-4 mx-6 w-full">
+        <div className="flex flex-col max-w-screen-xl space-y-4 mx-1 sm:mx-6 w-full">
           <div className="w-full bg-purple-400 rounded-lg text-center py-4">
             <ServiceClubInfo clubId={user.club} />
           </div>
