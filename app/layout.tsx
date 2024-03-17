@@ -27,13 +27,13 @@ export default async function RootLayout({ children }: Props) {
   const session = await auth();
   return (
     <html lang="en">
-      <body className={cn(space_grotesk.className, "")}>
+      <body className={cn(space_grotesk.className, "bg-background")}>
         <Providers session={session}>
-          <main className="">
-            <div className="">
+          <main>
+            <div>
               <NavBar />
             </div>
-            <div className="flex items-center justify-center  sm:pt-5 pt-2">
+            <div className="flex items-center justify-center sm:pt-5 pt-2 text-textPrimary">
               {children}
             </div>
           </main>

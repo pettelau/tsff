@@ -1,5 +1,9 @@
 const Loading = () => {
-  return "Laster inn ...";
+  return (
+    <div className="flex justify-center items-center my-20">
+      Laster inn...
+    </div>
+  );
 };
 
 export default Loading;
