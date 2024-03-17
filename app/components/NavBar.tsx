@@ -66,6 +66,7 @@ export default function NavBar() {
         <Navbar
           // className="border-b-2 border-primary bg-primary"
           onMenuOpenChange={setIsMenuOpen}
+          className="bg-primary"
           classNames={{
             item: [
               "text-sm",
@@ -115,8 +116,9 @@ export default function NavBar() {
                   aria-label={item.display}
                   key={item.href}
                   isActive={pathname.startsWith(item.href)}
+                  className="text-sm" // Legg til text-sm klassen her
                 >
-                  <Link color="foreground" href={item.href} className="text-sm">
+                  <Link href={item.href} className="text-sm text-textPrimary">
                     {item.display}
                   </Link>
                 </NavbarItem>
@@ -133,13 +135,11 @@ export default function NavBar() {
                     className="w-[200px] hover:opacity-100"
                   >
                     <NavbarItem
-                      aria-label={item.display}
                       isActive={pathname.startsWith(item.href)}
                     >
                       <DropdownTrigger className="">
                         <Link
-                          className="text-sm cursor-pointer"
-                          color="foreground"
+                          className="text-sm cursor-pointer text-textPrimary"
                           onClick={() => {
                             setOpenMenuItem(null);
                             router.push(item.href);
@@ -148,7 +148,7 @@ export default function NavBar() {
                             setOpenMenuItem(item.href);
                           }}
                         >
-                          {item.display}{" "}
+                          {item.display}
                           <MdOutlineKeyboardArrowDown
                             className={`transition-transform duration-100 ${
                               openMenuItem === item.href
@@ -202,7 +202,7 @@ export default function NavBar() {
             ) : (
               <NavbarItem>
                 <Button
-                  className="border-white"
+                  className="border-white text-textPrimary"
                   variant="bordered"
                   onClick={() => {
                     router.push("/auth/login");
@@ -219,7 +219,6 @@ export default function NavBar() {
             {menuItems.map((item, index) => (
               <NavbarMenuItem key={`${item}-${index}`}>
                 <Link
-                  color={"foreground"}
                   className="w-full"
                   href={item.href}
                   size="lg"
