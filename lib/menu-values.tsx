@@ -30,14 +30,8 @@ export const serviceMenuTabs: ServiceMenuT[] = [
     hideIfNoClub: true,
   },
   {
-    name: "Spilte kamper",
-    href: "/profil/spilte-kamper",
-    icon: <FaHistory />,
-    hideIfNoClub: true,
-  },
-  {
-    name: "Kommende kamper",
-    href: "/profil/kommende-kamper",
+    name: "Kamper",
+    href: "/profil/kamper",
     icon: <MdOutlineScoreboard />,
     hideIfNoClub: true,
   },

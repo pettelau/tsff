@@ -35,3 +35,10 @@ export type ServiceMenuT = {
   icon: JSX.Element;
   hideIfNoClub: boolean;
 };
+
+export enum MatchState {
+  NOT_STARTED,
+  ONGOING,
+  FINISHED,
+  UNKNOWN
+}

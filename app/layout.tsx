@@ -5,6 +5,8 @@ import { Space_Grotesk } from "next/font/google";
 import { auth } from "@/auth";
 import { Viewport } from "next";
 import { cn } from "@/lib/utils";
+import { getQueryClient } from "@/getQueryClient";
+import { dehydrate } from "@tanstack/react-query";
 
 export const metadata = {
   title: "TSFF",
@@ -25,10 +27,15 @@ export const viewport: Viewport = {
 
 export default async function RootLayout({ children }: Props) {
   const session = await auth();
+  
+  const queryClient = getQueryClient();
+
+  const dehydratedState = dehydrate(queryClient);
+
   return (
     <html lang="en">
       <body className={cn(space_grotesk.className, "")}>
-        <Providers session={session}>
+        <Providers session={session} dehydratedState={dehydratedState}>
           <main className="">
             <div className="">
               <NavBar />

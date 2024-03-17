@@ -56,6 +56,13 @@ async function seed() {
       semester: SemesterType.AUTUMN,
     },
   });
+  const competition3 = await db.competition.create({
+    data: {
+      type: CompetitionType.A_SLUTTSPILL,
+      year: 2024,
+      semester: SemesterType.SPRING,
+    },
+  });
 
   const teamNamesCompetition1 = [
     "TIHLDE Pythons",
@@ -81,6 +88,15 @@ async function seed() {
     "Hattfjelldal United",
     "Tim&Shænko",
     "Realkameratene",
+  ];
+
+  const teamNamesCompetition3 = [
+    "Pareto FK",
+    "Steindølene FK 2",
+    "Omega FK",
+    "TIHLDE Pythons",
+    "Datakameratene FK",
+    "Salt IF",
   ];
 
   // Function to add days to a date
@@ -127,6 +143,22 @@ async function seed() {
     ),
   );
 
+  await Promise.all(
+    teamNamesCompetition3.map((_, index) =>
+      db.competitionParticipation.create({
+        data: {
+          clubId:
+            createdClubs &&
+            // @ts-ignore
+            createdClubs.find(
+              (club) => club.name === teamNamesCompetition3[index],
+            ).id,
+          competitionId: competition3.id,
+        },
+      }),
+    ),
+  );
+
   // Assuming the IDs for the competitions are known or fetched
   const competitionIds = [competition1.id, competition2.id];
 
@@ -147,13 +179,13 @@ async function seed() {
       teamsInCompetition.sort((a, b) => a.clubId - b.clubId);
 
       let numTeams = teamsInCompetition.length;
-      
+
       const hasDummy = numTeams % 2 !== 0;
       if (hasDummy) {
         teamsInCompetition.push({ clubId: -1 });
-        numTeams += 1
+        numTeams += 1;
       }
-      
+
       const totalRounds = numTeams - 1;
 
       console.log("tot round: ", totalRounds);
@@ -177,7 +209,7 @@ async function seed() {
             if (!isHome) {
               [homeTeamId, awayTeamId] = [awayTeamId, homeTeamId];
             }
-       
+
             const createdMatch = await db.match.create({
               data: {
                 competitionRoundId: compRound.id,
@@ -210,6 +242,44 @@ async function seed() {
       }
     }),
   );
+
+  console.log("Creating play off games ...");
+
+  const compRound = await db.competitionRound.create({
+    data: { round: 1, competitionId: competition3.id },
+  });
+
+  await db.match.create({
+    data: {
+      competitionRoundId: compRound.id,
+      kickoffTime: new Date(
+        Math.round(addDays(new Date(), 7).getTime() / (1000 * 60 * 60)) *
+          (1000 * 60 * 60),
+      ),
+      venue: [Venue.TEMPE_KUNSTGRESS, Venue.TEMPE_HOVEDBANE][
+        Math.floor(Math.random() * 2)
+      ],
+      homeClubId: 1,
+      awayClubId: 2,
+      responsibleRefereeClubId: 3,
+    },
+  });
+
+  await db.match.create({
+    data: {
+      competitionRoundId: compRound.id,
+      kickoffTime: new Date(
+        Math.round(addDays(new Date(), 18).getTime() / (1000 * 60 * 60)) *
+          (1000 * 60 * 60),
+      ),
+      venue: [Venue.TEMPE_KUNSTGRESS, Venue.TEMPE_HOVEDBANE][
+        Math.floor(Math.random() * 2)
+      ],
+      homeClubId: 3,
+      awayClubId: 1,
+      responsibleRefereeClubId: 7,
+    },
+  });
 
   console.log("Creating players ...");
   const player1 = await db.player.create({
