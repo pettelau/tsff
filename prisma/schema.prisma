@@ -150,6 +150,7 @@ model Player {
   clubId               Int?
   createdAt            DateTime     @default(now())
   updatedAt            DateTime     @updatedAt
+  nifUpdatedAt         DateTime?
   relatedClub          Club?        @relation(fields: [clubId], references: [id], onDelete: SetNull)
   MatchEvent           MatchEvent[]
 }

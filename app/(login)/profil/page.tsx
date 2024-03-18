@@ -8,8 +8,6 @@ export const ProfilePage = async () => {
   const user = await currentUser();
   return (
     <div className="flex flex-col justify-center space-y-6 items-center">
-      <h2 className="h2">Profilside</h2>
-      {user?.role === UserRole.ADMIN && <GoToAdmin />}
       <div>Epost: {user?.email}</div>
       <EditOwnUserForm />
       <LogoutButton />

@@ -1,5 +1,6 @@
 import {
   CompetitionType,
+  GenderType,
   MatchEventType,
   Position,
   SemesterType,
@@ -85,3 +86,8 @@ export const SemesterTypesMap = {
   [SemesterType.AUTUMN]: { label: "Høst" },
   [SemesterType.SPRING]: { label: "Vår" },
 } satisfies Record<SemesterType, { label: string }>;
+
+export const genderTypesMap = {
+  [GenderType.MAN]: { label: "Mann" },
+  [GenderType.WOMAN]: { label: "Kvinne" },
+} satisfies Record<GenderType, { label: string }>;

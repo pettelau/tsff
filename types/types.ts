@@ -28,3 +28,17 @@ export type MatchWithTeams = Match & {
   homeTeam: Club;
   awayTeam: Club;
 };
+
+export type ServiceMenuT = {
+  name: string;
+  href: string;
+  icon: JSX.Element;
+  hideIfNoClub: boolean;
+};
+
+export enum MatchState {
+  NOT_STARTED,
+  ONGOING,
+  FINISHED,
+  UNKNOWN
+}

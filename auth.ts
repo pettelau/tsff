@@ -31,6 +31,7 @@ export const {
       if (session.user) {
         session.user.username = token.username as string;
         session.user.email = token.email as string;
+        session.user.club = token.club as number;
       }
 
       return session;
@@ -42,10 +43,10 @@ export const {
 
       if (!existingUser) return token;
 
-
       token.username = existingUser.username;
       token.email = existingUser.email;
       token.role = existingUser.role;
+      token.club = existingUser.clubId;
 
       return token;
     },
