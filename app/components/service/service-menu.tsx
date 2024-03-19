@@ -4,9 +4,23 @@ import { usePathname, useRouter } from "next/navigation";
 
 import Link from "next/link";
 import { useCurrentUser } from "@/hooks/use-current-user";
+import { useEffect, useState } from "react";
 
-export const ServiceMenu = () => {
+type ServiceMenuProps = {
+  numUnreadNotifications: number;
+};
+
+export const ServiceMenu = ({
+  numUnreadNotifications: numUnreadNotifications,
+}: ServiceMenuProps) => {
+  const [numUnread, setNumUnread] = useState<number>(numUnreadNotifications);
   const pathname = usePathname();
+
+  useEffect(() => {
+    if (pathname === "/profil/beskjeder") {
+      setNumUnread(0);
+    }
+  }, [pathname]);
 
   const user = useCurrentUser();
   return (
@@ -25,7 +39,18 @@ export const ServiceMenu = () => {
               } hover:rounded-lg`}
             >
               <div>{menuItem.icon}</div>
-              <div>{menuItem.name}</div>
+              <div
+                className={
+                  numUnread > 0 && menuItem.name === "Beskjeder"
+                    ? "font-bold"
+                    : ""
+                }
+              >
+                {menuItem.name}{" "}
+                {numUnread > 0 &&
+                  menuItem.name === "Beskjeder" &&
+                  ` (${numUnreadNotifications})`}
+              </div>
             </Link>
           );
         })}

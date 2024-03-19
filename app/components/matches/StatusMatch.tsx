@@ -15,11 +15,11 @@ export const StatusMatch = ({
 
   const getBgColor = () => {
     if (!viewAsClubId) {
-      return "bg-gray-300";
+      return "bg-gray-700";
     }
 
     if (match.homeGoals === match.awayGoals) {
-      return "bg-gray-300";
+      return "bg-gray-700";
     }
 
     if (viewAsClubId === match.homeClubId) {

@@ -1,3 +1,4 @@
+import { RecipientGroup } from "@/types/types";
 import {
   CompetitionType,
   GenderType,
@@ -91,3 +92,20 @@ export const genderTypesMap = {
   [GenderType.MAN]: { label: "Mann" },
   [GenderType.WOMAN]: { label: "Kvinne" },
 } satisfies Record<GenderType, { label: string }>;
+
+export const recipientGroupMap = {
+  [RecipientGroup.ALL_USERS]: { label: "Alle brukere" },
+  [RecipientGroup.ALL_SERVICE]: { label: "Alle servicebrukere" },
+  [RecipientGroup.ADMIN]: { label: "Bare admin" },
+  [RecipientGroup.SERVICE_WITH_TEAM]: {
+    label: "Alle servicebrukere med tilknyttet lag",
+  },
+  [RecipientGroup.CUSTOM]: { label: "Egendefinert" },
+} satisfies Record<RecipientGroup, { label: string }>;
+
+export const recipientGroupList = Object.entries(recipientGroupMap).map(
+  ([type, { label }]) => ({
+    type,
+    label,
+  }),
+) satisfies { type: string; label: string }[];

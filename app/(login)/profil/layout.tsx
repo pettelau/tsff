@@ -4,6 +4,7 @@ import { ServiceMenu } from "@/app/components/service/service-menu";
 import { serviceMenuRenderer } from "@/app/components/service/service-menu-renderer";
 import { useCurrentUser } from "@/hooks/use-current-user";
 import { currentUser } from "@/lib/auth";
+import { db } from "@/lib/db";
 import { serviceMenuTabs } from "@/lib/menu-values";
 import { ServiceMenuT } from "@/types/types";
 import { redirect } from "next/navigation";
@@ -16,9 +17,12 @@ interface Props {
 const ProfileLayout = async ({ children }: Props) => {
   const user = await currentUser();
 
-  // const [selectedMenu, setSelectedMenu] = useState<ServiceMenuT["name"]>(
-  //   serviceMenuTabs[0].name,
-  // );
+  const numUnreadNotifications = await db.userNotification.count({
+    where: {
+      userId: user?.id,
+      isRead: false,
+    },
+  });
 
   if (!user) {
     return redirect("/auth/login");
@@ -31,8 +35,8 @@ const ProfileLayout = async ({ children }: Props) => {
           </div>
 
           <div className="flex flex-col sm:flex-row space-x-0 sm:space-x-4 space-y-4 sm:space-y-0 w-full">
-            <div className="h-fit w-full sm:w-1/4 xl:w-1/5 bg-blue-300 rounded-lg">
-              <ServiceMenu />
+            <div className="h-fit w-full sm:w-1/4 xl:w-1/5 bg-primary rounded-lg">
+              <ServiceMenu numUnreadNotifications={numUnreadNotifications} />
             </div>
 
             <div className="w-full sm:w-3/4 xl:w-4/5 ">{children}</div>

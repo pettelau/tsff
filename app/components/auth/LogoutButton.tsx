@@ -8,5 +8,5 @@ export const LogoutButton = () => {
     logout();
   };
 
-  return <Button variant="bordered" onClick={onClick}>Logg ut</Button>;
+  return <Button onClick={onClick}>Logg ut</Button>;
 };
