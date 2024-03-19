@@ -1,5 +1,11 @@
-import { MatchState } from "@/types/types";
-import { GenderType, Match, SemesterType, UserRole } from "@prisma/client";
+import { MatchState, RecipientGroup } from "@/types/types";
+import {
+  GenderType,
+  Match,
+  SemesterType,
+  User,
+  UserRole,
+} from "@prisma/client";
 
 import { type ClassValue, clsx } from "clsx";
 import {
@@ -111,5 +117,33 @@ export const getMatchTime = (kickoffTime: Date) => {
   } else {
     // After match duration
     return "90'+";
+  }
+};
+
+export const filterUserIdsByRecipientGroup = (
+  recipientGroup: string,
+  users: User[],
+) => {
+  switch (recipientGroup) {
+    case RecipientGroup.ALL_USERS:
+      return users.map((user) => user.id);
+
+    case RecipientGroup.ALL_SERVICE:
+      return users
+        .filter((user) => user.role === UserRole.USER)
+        .map((user) => user.id);
+
+    case RecipientGroup.SERVICE_WITH_TEAM:
+      return users
+        .filter((user) => user.role === UserRole.USER && user.clubId !== null)
+        .map((user) => user.id);
+
+    case RecipientGroup.ADMIN:
+      return users
+        .filter((user) => user.role === UserRole.ADMIN)
+        .map((user) => user.id);
+
+    default:
+      return [];
   }
 };

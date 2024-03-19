@@ -38,6 +38,8 @@ async function seed() {
   await db.competition.deleteMany();
   await db.competitionParticipation.deleteMany();
   await db.competitionRound.deleteMany();
+  await db.notification.deleteMany();
+  await db.userNotification.deleteMany();
   await resetIdSequences();
 
   console.log("Creating competitions ...");

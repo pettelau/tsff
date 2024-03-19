@@ -54,3 +54,16 @@ export const NIFSchema = z.object({
   // Epost: z.string().email(),
   // kontigent: z.string().transform((value) => value === "true" || value === "True"),
 });
+
+const recipientIdsSchema = z.preprocess((arg) => {
+  if (arg instanceof Set) {
+    return Array.from(arg);
+  }
+  return [];
+}, z.array(z.string()));
+
+export const NewNotificationSchema = z.object({
+  title: z.string().min(1, { message: "Beskjeden må ha en tittel" }),
+  infoText: z.string().min(1, { message: "Beskjeden må ha en tekst" }),
+  recipientIds: recipientIdsSchema,
+});

@@ -40,5 +40,13 @@ export enum MatchState {
   NOT_STARTED,
   ONGOING,
   FINISHED,
-  UNKNOWN
+  UNKNOWN,
+}
+
+export enum RecipientGroup {
+  ALL_USERS = "ALL_USERS",
+  ALL_SERVICE = "ALL_SERVICE",
+  SERVICE_WITH_TEAM = "SERVICE_WITH_TEAM",
+  ADMIN = "ADMIN",
+  CUSTOM = "CUSTOM",
 }

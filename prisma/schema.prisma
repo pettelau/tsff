@@ -57,13 +57,15 @@ enum GenderType {
 }
 
 model User {
-  id          String   @id @default(cuid())
-  username    String   @unique
-  email       String?  @unique
-  password    String?
-  role        UserRole @default(USER)
-  relatedClub Club?    @relation(fields: [clubId], references: [id])
-  clubId      Int?
+  id                    String             @id @default(cuid())
+  username              String             @unique
+  email                 String?            @unique
+  password              String?
+  role                  UserRole           @default(USER)
+  relatedClub           Club?              @relation(fields: [clubId], references: [id])
+  clubId                Int?
+  createdNotifications  Notification[]     @relation(name: "UserCreatedNotifications")
+  receivedNotifications UserNotification[]
 }
 
 model PasswordResetToken {
@@ -162,4 +164,25 @@ model MatchEvent {
   playerId Int
   match    Match          @relation(fields: [matchId], references: [id], onDelete: Cascade)
   player   Player         @relation(fields: [playerId], references: [id], onDelete: Cascade)
+}
+
+model Notification {
+  id         Int                @id @default(autoincrement())
+  title      String
+  infoText   String
+  createdAt  DateTime           @default(now())
+  creatorId  String
+  creator    User               @relation(name: "UserCreatedNotifications", fields: [creatorId], references: [id])
+  recipients UserNotification[]
+}
+
+model UserNotification {
+  userId         String
+  notificationId Int
+  isRead         Boolean      @default(false)
+  readAt         DateTime     @updatedAt
+  user           User         @relation(fields: [userId], references: [id])
+  notification   Notification @relation(fields: [notificationId], references: [id])
+
+  @@id([userId, notificationId])
 }
