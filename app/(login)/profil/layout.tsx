@@ -31,7 +31,7 @@ const ProfileLayout = async ({ children }: Props) => {
           </div>
 
           <div className="flex flex-col sm:flex-row space-x-0 sm:space-x-4 space-y-4 sm:space-y-0 w-full">
-            <div className="h-fit w-full sm:w-1/4 xl:w-1/5 bg-blue-300 rounded-lg">
+            <div className="h-fit w-full sm:w-1/4 xl:w-1/5 bg-primary rounded-lg">
               <ServiceMenu />
             </div>
 

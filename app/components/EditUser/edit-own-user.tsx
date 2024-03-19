@@ -62,7 +62,6 @@ export const EditOwnUserForm = () => {
             name="username"
             render={({ field, fieldState }) => (
               <Input
-                variant="bordered"
                 isDisabled={isPending}
                 errorMessage={fieldState.error?.message}
                 label="Brukernavn"

@@ -112,7 +112,7 @@ export const AddPlayersModal = ({ clubId, clubs }: AddPlayersModalProps) => {
 
   return (
     <>
-      <Button variant="bordered" onClick={onOpen}>
+      <Button onClick={onOpen} className="bg-highlight">
         Legg til spillere
       </Button>
       <Modal
@@ -121,13 +121,15 @@ export const AddPlayersModal = ({ clubId, clubs }: AddPlayersModalProps) => {
         className="pb-5 sm:min-w-[600px]"
         scrollBehavior="inside"
       >
-        <ModalContent>
+        <ModalContent className="bg-background text-textPrimary">
           <ModalHeader className="pb-1">
-            <h2 className="h2">Legg til spillere</h2>
+            <h2 className="h2 text-textPrimary">Legg til spillere</h2>
           </ModalHeader>
           <ModalBody>
-            <Switch isSelected={showOnlyFree} onValueChange={setShowOnlyFree}>
+            <Switch isSelected={showOnlyFree} onValueChange={setShowOnlyFree} >
+              <span className="text-textPrimary">
               Vis bare spillere uten klubb
+              </span>
             </Switch>
             <Input
               isClearable

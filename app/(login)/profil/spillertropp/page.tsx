@@ -20,7 +20,7 @@ const ClubSquadPage = async () => {
     <>
       <div className="flex flex-row justify-between items-center mb-4">
         <div>
-          <h2 className="h2 m-0">Spillertropp</h2>
+          <h2 className="h2 m-0 text-textPrimary">Spillertropp</h2>
         </div>
         <div>
           <AddPlayersModal clubId={user.club} clubs={clubs}/>

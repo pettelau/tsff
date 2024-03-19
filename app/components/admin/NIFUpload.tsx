@@ -110,7 +110,6 @@ export const NIFUpload = () => {
         <ModalContent>
           <ModalHeader>Last opp NIF-data</ModalHeader>
           <ModalBody>
-            {error}
             <input
               type="file"
               accept=".csv"

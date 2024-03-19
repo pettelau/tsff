@@ -80,12 +80,11 @@ export const EditPlayerPos = ({
             />
             <Button
               onClick={() => setEditOpen(false)}
-              variant="bordered"
               color="warning"
             >
               Avbryt
             </Button>
-            <Button type="submit" variant="bordered" color="success">
+            <Button type="submit" color="success">
               Lagre
             </Button>
           </form>
@@ -101,7 +100,6 @@ export const EditPlayerPos = ({
             onClick={() => setEditOpen(true)}
             size="sm"
             className="h-[24px]"
-            variant="bordered"
           >
             Endre
           </Button>
