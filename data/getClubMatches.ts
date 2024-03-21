@@ -5,8 +5,7 @@ import { minutesToSeconds } from "date-fns";
 import { unstable_cache } from "next/cache";
 import { db } from "@/lib/db";
 import { getActiveCompetitions } from "./getActiveCompetitions";
-
-export const MATCH_CACHE_TAG = "match";
+import { MATCHES_CACHE_TAG } from "./getCompetitionMatchesWithResults";
 
 export type ExtendedMatch = Match & {
   competitionRound: CompetitionRound & {
@@ -75,7 +74,6 @@ export const getClubMatches = unstable_cache(
 
       matchesToShow = [...defaultFinished, ...defaultUpcoming];
     } else if (page < 0) {
-
       // Calc what the starting point will be on a reversed array (newest first)
       const startIndex = finishedMatchesLimit + Math.abs(pageSize * (page + 1));
 
@@ -89,7 +87,6 @@ export const getClubMatches = unstable_cache(
       hasMorePrevious = startIndex + pageSize < finishedMatches.length;
       hasMoreNext = true;
     } else {
-      
       // calculate starting poing considering upcoming matches already shown in
       // the default page 0, then slice based on pageSize
       const startIndex =
@@ -109,6 +106,6 @@ export const getClubMatches = unstable_cache(
   undefined,
   {
     revalidate: minutesToSeconds(120),
-    tags: [MATCH_CACHE_TAG],
+    tags: [MATCHES_CACHE_TAG],
   },
 );

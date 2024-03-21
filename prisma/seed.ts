@@ -7,6 +7,7 @@ import {
   SemesterType,
   Match,
   Club,
+  Squad,
 } from "@prisma/client";
 import { addDays, subDays } from "date-fns";
 
@@ -40,6 +41,8 @@ async function seed() {
   await db.competitionRound.deleteMany();
   await db.notification.deleteMany();
   await db.userNotification.deleteMany();
+  await db.squadPlayer.deleteMany();
+  await db.squad.deleteMany();
   await resetIdSequences();
 
   console.log("Creating competitions ...");
@@ -115,6 +118,7 @@ async function seed() {
   // Create clubs and competition participations in parallel for efficiency
   const createdClubs: Club[] = [];
   const createdMatches: Match[] = [];
+  const createdSquads: Squad[] = [];
 
   for (const name of teamNamesCompetition1.concat(teamNamesCompetition2)) {
     const club = await db.club.create({
@@ -190,19 +194,16 @@ async function seed() {
 
       const totalRounds = numTeams - 1;
 
-      console.log("tot round: ", totalRounds);
-
       const matchesPerRound = numTeams / 2;
 
       for (let round = 0; round < totalRounds; round++) {
         const compRound = await db.competitionRound.create({
-          data: { round, competitionId },
+          data: { round: round + 1, competitionId },
         });
 
         for (let match = 0; match < matchesPerRound; match++) {
           const homeTeamIndex = numTeams - 1 - match;
 
-          console.log(homeTeamIndex, match);
           let homeTeamId = teamsInCompetition[homeTeamIndex].clubId;
           let awayTeamId = teamsInCompetition[match].clubId;
 
@@ -235,12 +236,25 @@ async function seed() {
                   .clubId,
               },
             });
+
+            const homeSquad = await db.squad.create({
+              data: {
+                matchId: createdMatch.id,
+                clubId: homeTeamId,
+              },
+            });
+            const awaySquad = await db.squad.create({
+              data: {
+                matchId: createdMatch.id,
+                clubId: awayTeamId,
+              },
+            });
+            createdSquads.push(homeSquad, awaySquad);
             createdMatches.push(createdMatch);
           }
         }
         const lastTeam = teamsInCompetition.pop();
         if (lastTeam) teamsInCompetition.splice(1, 0, lastTeam);
-        console.log("\n");
       }
     }),
   );
@@ -325,26 +339,50 @@ async function seed() {
     },
   });
 
+  const sqPlayer1 = await db.squadPlayer.create({
+    data: {
+      playerId: player1.id,
+      squadId: createdSquads[0].id,
+    },
+  });
+
+  const sqPlayer2 = await db.squadPlayer.create({
+    data: {
+      playerId: player2.id,
+      squadId: createdSquads[1].id,
+    },
+  });
+
+  const sqPlayer3 = await db.squadPlayer.create({
+    data: {
+      playerId: player3.id,
+      squadId: createdSquads[1].id,
+    },
+  });
+
   console.log("Creating Match events ...");
   await db.matchEvent.create({
     data: {
       type: MatchEventType.GOAL,
-      matchId: createdMatches[0].id,
-      playerId: player1.id,
+      squadPlayerId: sqPlayer1.id,
     },
   });
   await db.matchEvent.create({
     data: {
       type: MatchEventType.RED_CARD,
-      matchId: createdMatches[1].id,
-      playerId: player2.id,
+      squadPlayerId: sqPlayer2.id,
     },
   });
   await db.matchEvent.create({
     data: {
       type: MatchEventType.YELLOW_CARD,
-      matchId: createdMatches[2].id,
-      playerId: player3.id,
+      squadPlayerId: sqPlayer2.id,
+    },
+  });
+  await db.matchEvent.create({
+    data: {
+      type: MatchEventType.YELLOW_CARD,
+      squadPlayerId: sqPlayer3.id,
     },
   });
 

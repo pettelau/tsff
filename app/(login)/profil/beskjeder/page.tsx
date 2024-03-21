@@ -9,10 +9,8 @@ import { IoNotifications } from "react-icons/io5";
 
 const NotificationsPage = async () => {
   const user = await currentUser();
-  if (!user) {
+  if (!user || !user.id) {
     return redirect("/auth/login");
-  } else if (!user.club || !user.id) {
-    return redirect("/profil");
   }
 
   const notifications = await db.userNotification.findMany({
@@ -44,6 +42,7 @@ const NotificationsPage = async () => {
     <div className="flex flex-col space-y-4">
       {notifications.map((notification) => (
         <StandaloneAccordion
+          key={notification.notificationId}
           primary={notification.notification.title}
           secondary={`Fra: ${notification.notification.creator.username} ${
             notification.notification.creator.role === UserRole.ADMIN &&

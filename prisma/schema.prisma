@@ -89,6 +89,7 @@ model Club {
   awayMatches              Match[]                    @relation("AwayTeam")
   match                    Match[]                    @relation("ResponsibleRefereeClub")
   competitionParticipation CompetitionParticipation[]
+  Squad                    Squad[]
 }
 
 model Competition {
@@ -135,35 +136,57 @@ model Match {
   homeTeam                 Club             @relation(name: "HomeTeam", fields: [homeClubId], references: [id])
   awayTeam                 Club             @relation(name: "AwayTeam", fields: [awayClubId], references: [id])
   responsibleRefereeClub   Club             @relation(name: "ResponsibleRefereeClub", fields: [responsibleRefereeClubId], references: [id])
-  matchEvent               MatchEvent[]
+  squad                    Squad[]
 }
 
 model Player {
-  id                   Int          @id @default(autoincrement())
-  nifId                Int?         @unique
+  id                   Int           @id @default(autoincrement())
+  nifId                Int?          @unique
   firstName            String
   dateOfBirth          DateTime?
   lastName             String?
   email                String?
   position             Position?
-  gender               GenderType?  @default(MAN)
-  isActive             Boolean      @default(true)
-  hasPaidMembershipFee Boolean      @default(false)
+  gender               GenderType?   @default(MAN)
+  isActive             Boolean       @default(true)
+  hasPaidMembershipFee Boolean       @default(false)
   clubId               Int?
-  createdAt            DateTime     @default(now())
-  updatedAt            DateTime     @updatedAt
+  createdAt            DateTime      @default(now())
+  updatedAt            DateTime      @updatedAt
   nifUpdatedAt         DateTime?
-  relatedClub          Club?        @relation(fields: [clubId], references: [id], onDelete: SetNull)
-  MatchEvent           MatchEvent[]
+  relatedClub          Club?         @relation(fields: [clubId], references: [id], onDelete: SetNull)
+  squadPlayer          SquadPlayer[]
+}
+
+model Squad {
+  id      Int           @id @default(autoincrement())
+  matchId Int
+  clubId  Int
+  players SquadPlayer[]
+
+  match Match @relation(fields: [matchId], references: [id], onDelete: Cascade)
+  club  Club  @relation(fields: [clubId], references: [id], onDelete: Cascade)
+
+  @@unique([matchId, clubId])
+}
+
+model SquadPlayer {
+  id       Int @id @default(autoincrement())
+  squadId  Int
+  playerId Int
+
+  squad      Squad        @relation(fields: [squadId], references: [id], onDelete: Cascade)
+  player     Player       @relation(fields: [playerId], references: [id], onDelete: Cascade)
+  matchEvent MatchEvent[]
+
+  @@unique([squadId, playerId])
 }
 
 model MatchEvent {
-  id       Int            @id @default(autoincrement())
-  type     MatchEventType
-  matchId  Int
-  playerId Int
-  match    Match          @relation(fields: [matchId], references: [id], onDelete: Cascade)
-  player   Player         @relation(fields: [playerId], references: [id], onDelete: Cascade)
+  id            Int            @id @default(autoincrement())
+  type          MatchEventType
+  squadPlayerId Int
+  squadPlayer   SquadPlayer    @relation(fields: [squadPlayerId], references: [id], onDelete: Cascade)
 }
 
 model Notification {

@@ -40,7 +40,7 @@ export const getCurrentSeason = () => {
     : `${year - 1}/${year}`;
 };
 
-export const formatDateVerbose = (date: Date) => {
+export const formatDateVerbose = (date: Date, smallMonth: boolean = false) => {
   if (isToday(date)) {
     return "I dag";
   }
@@ -50,7 +50,7 @@ export const formatDateVerbose = (date: Date) => {
   if (isYesterday(date)) {
     return "I går";
   }
-  return format(date, "d. MMMM", { locale: nb });
+  return format(date, smallMonth ? "d. LLL" : "d. MMMM", { locale: nb });
 };
 
 export const getResultColor = (res: "W" | "D" | "L") => {

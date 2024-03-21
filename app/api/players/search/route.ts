@@ -3,6 +3,8 @@ import { db } from "@/lib/db";
 import { NextRequest, NextResponse } from "next/server";
 import stringSimilarity from "string-similarity-js";
 
+export const dynamic = 'force-dynamic';
+
 export const GET = async (request: NextRequest) => {
   const user = currentUser();
   if (!user) {
