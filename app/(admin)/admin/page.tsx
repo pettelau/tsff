@@ -7,7 +7,7 @@ import { getUsers } from "@/data/getUsers";
 import { currentUser } from "@/lib/auth";
 import { UserRole } from "@prisma/client";
 
-export const AdminPage = async () => {
+const AdminPage = async () => {
   const user = await currentUser();
   const users = await getUsers();
 

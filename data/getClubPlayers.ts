@@ -1,6 +1,6 @@
 import "server-only";
 
-import { Club, Competition, Player } from "@prisma/client";
+import { Player } from "@prisma/client";
 import { minutesToSeconds } from "date-fns";
 import { unstable_cache } from "next/cache";
 import { db } from "@/lib/db";

@@ -55,7 +55,7 @@ export const ClubMatches = ({ clubId }: ClubMatchesProps) => {
           matches.map((match, i) => {
             return (
               <div key={match.id} className="flex flex-col">
-                <div>
+                <div className="py-3">
                   <Match
                     match={match}
                     viewAsClubId={clubId}
