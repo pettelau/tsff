@@ -1,4 +1,3 @@
-import { IoIosFootball } from "react-icons/io";
 import { FaTableList } from "react-icons/fa6";
 import { MdOutlineScoreboard } from "react-icons/md";
 import { LuTrophy } from "react-icons/lu";

@@ -8,7 +8,7 @@ module.exports = {
     DEFAULT: "#dc353c", // Rød farge (TSFF)
   },
   background: {
-    DEFAULT: "#292929", // Mørk blå / svart bakgrunnsfarge
+    DEFAULT: "#12141c", // Mørk blå / svart bakgrunnsfarge
   },
   highlight: {
     DEFAULT: "#38a169", // Grønn farge for fremheving
