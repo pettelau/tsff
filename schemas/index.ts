@@ -1,5 +1,5 @@
 import * as z from "zod";
-import { GenderType, UserRole } from "@prisma/client";
+import { GenderType, MatchEventType, UserRole } from "@prisma/client";
 import { translateGender } from "@/lib/utils";
 
 export const LoginSchema = z.object({
@@ -66,4 +66,21 @@ export const NewNotificationSchema = z.object({
   title: z.string().min(1, { message: "Beskjeden må ha en tittel" }),
   infoText: z.string().min(1, { message: "Beskjeden må ha en tekst" }),
   recipientIds: recipientIdsSchema,
+});
+
+export const NewMatchEventSchema = z.object({
+  eventType: z.enum(
+    [MatchEventType.GOAL, MatchEventType.RED_CARD, MatchEventType.YELLOW_CARD],
+    {
+      errorMap: () => ({ message: "Ugyldig kampevent" }),
+    },
+  ),
+  squadPlayerId: z
+    .string()
+    .min(1, { message: "Kamphendelsen må være tilknyttet en spiller" }),
+});
+
+export const SquadSchema = z.object({
+  playerIds: z.array(z.string()),
+  squadId: z.number(),
 });

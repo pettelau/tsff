@@ -42,7 +42,6 @@ export const CreateNotificationModal = ({
   userId: string;
   users: User[];
 }) => {
-  const user = useCurrentUser();
   const router = useRouter();
   const { isOpen, onOpen, onClose } = useDisclosure();
 

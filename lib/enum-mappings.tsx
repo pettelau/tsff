@@ -9,12 +9,8 @@ import {
   Venue,
 } from "@prisma/client";
 import { IoIosFootball } from "react-icons/io";
-const RedCard = () => (
-  <div className="redCard"></div>
-);
-const YellowCard = () => (
-  <div className="yellowCard"></div>
-);
+const RedCard = () => <div className="redCard"></div>;
+const YellowCard = () => <div className="yellowCard"></div>;
 
 export const userRolesMap = {
   [UserRole.ADMIN]: { label: "Admin" },
@@ -52,11 +48,12 @@ export const matchEventTypesMap = {
 } satisfies Record<MatchEventType, { label: string; icon: JSX.Element }>;
 
 export const matchEventTypesList = Object.entries(matchEventTypesMap).map(
-  ([type, { label }]) => ({
+  ([type, { label, icon }]) => ({
     type,
     label,
+    icon,
   }),
-) satisfies { type: string; label: string }[];
+) satisfies { type: string; label: string; icon: JSX.Element }[];
 
 export const venuesMap = {
   [Venue.TEMPE_HOVEDBANE]: { label: "Tempe hovedbane" },
