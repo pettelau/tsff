@@ -36,31 +36,18 @@ export type ServiceMenuT = {
   hideIfNoClub: boolean;
 };
 
-export type PlayerGoals = {
+export type PlayerStats = {
   id: number
   firstName: string;
   lastName: string;
   clubName: string | null;
-  goals: number;
+  count: number;
 }
-export type PlayerYellow = {
-  id: number
-  firstName: string;
-  lastName: string;
-  clubName: string | null;
-  yellows: number;
-}
-export type PlayerRed = {
-  id: number
-  firstName: string;
-  lastName: string;
-  clubName: string | null;
-  reds: number;
-}
+
 export type PlayerWithClub = {
   id: number;
   firstName: string;
-  lastName: string;
+  lastName: string | null;
   club: Club | null;
 };
 
