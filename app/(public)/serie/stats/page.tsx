@@ -1,23 +1,22 @@
 import { GoalTable } from "@/app/components/stats/goalTable";
 import { YellowTable } from "@/app/components/stats/yellowTable";
 import { RedTable } from "@/app/components/stats/redTable";
-import { getPlayerStats } from "@/data/getPlayerStats";
+import { getGoalStats } from "@/data/getGoalStats";
 import { getYellowStats } from "@/data/getYellowStats";
 import { getRedStats } from "@/data/getRedStats";
 import { getPlayersWithClubs } from "@/data/getPlayersWithClubs";
 
-const DivisionPage = async () => {
-  // Hent spillernavn og klubbinformasjon
+const StatsPage = async () => {
+  // Henter spillernavn og klubbinformasjon
   const playersWithClubs = await getPlayersWithClubs();
-  // Hent målstatistikk
-  const playerStats = await getPlayerStats();
+  // Henter målstatistikk
+  const playerStats = await getGoalStats();
 
-  // Kombiner spillernavn, klubbinformasjon og målstatistikk
-  const combinedStats = playersWithClubs
+  const goalStats = playersWithClubs
     .map((playerWithClub) => {
       const clubInfo = playerWithClub.club
         ? playerWithClub.club
-        : { id: 0, name: "-" }; // Sjekk om klubbinformasjonen er tilgjengelig
+        : { id: 0, name: "-" };
       const goals =
         playerStats.find((stat) => stat.player.id === playerWithClub.id)
           ?.goals ?? 0;
@@ -29,18 +28,17 @@ const DivisionPage = async () => {
         goals,
       };
     })
-    .sort((a, b) => b.goals - a.goals) // Sorter spillere etter antall gule kort i synkende rekkefølge
-    .slice(0, 10); // Begrens listen til maksimalt 10 spillere;
+    .sort((a, b) => b.goals - a.goals)
+    .slice(0, 10);
 
-  // Hent gule kort
+  // Henter gule kort
   const yellowStats = await getYellowStats();
 
-  // Kombiner spillernavn, klubbinformasjon og målstatistikk
   const yellowsStats = playersWithClubs
     .map((playerWithClub) => {
       const clubInfo = playerWithClub.club
         ? playerWithClub.club
-        : { id: 0, name: "-" }; // Sjekk om klubbinformasjonen er tilgjengelig
+        : { id: 0, name: "-" };
       const yellows =
         yellowStats.find((stat) => stat.player.id === playerWithClub.id)
           ?.yellows ?? 0;
@@ -52,18 +50,17 @@ const DivisionPage = async () => {
         yellows,
       };
     })
-    .sort((a, b) => b.yellows - a.yellows) // Sorter spillere etter antall gule kort i synkende rekkefølge
-    .slice(0, 10); // Begrens listen til maksimalt 10 spillere
+    .sort((a, b) => b.yellows - a.yellows) 
+    .slice(0, 10);
 
-      // Hent gule kort
+  // Henter røde kort
   const redStats = await getRedStats();
 
-  // Kombiner spillernavn, klubbinformasjon og målstatistikk
   const redsStats = playersWithClubs
     .map((playerWithClub) => {
       const clubInfo = playerWithClub.club
         ? playerWithClub.club
-        : { id: 0, name: "-" }; // Sjekk om klubbinformasjonen er tilgjengelig
+        : { id: 0, name: "-" };
       const reds =
         redStats.find((stat) => stat.player.id === playerWithClub.id)
           ?.reds ?? 0;
@@ -75,13 +72,13 @@ const DivisionPage = async () => {
         reds,
       };
     })
-    .sort((a, b) => b.reds - a.reds) // Sorter spillere etter antall gule kort i synkende rekkefølge
-    .slice(0, 10); // Begrens listen til maksimalt 10 spillere
+    .sort((a, b) => b.reds - a.reds)
+    .slice(0, 10);
 
   return (
     <div className="flex flex-col items-center my-20">
       <div className="bg-primary rounded-xl text-center p-3 text-white mb-4">
-        <GoalTable tableData={combinedStats} name="Toppscorer" />
+        <GoalTable tableData={goalStats} name="Toppscorer" />
       </div>
       <div className="bg-primary rounded-xl text-center p-3 text-white mb-4">
         <YellowTable tableData={yellowsStats} name="Gule Kort" />
@@ -93,4 +90,4 @@ const DivisionPage = async () => {
   );
 };
 
-export default DivisionPage;
+export default StatsPage;

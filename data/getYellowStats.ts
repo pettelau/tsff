@@ -13,16 +13,15 @@ export const getYellowStats = async (): Promise<PlayerYellowStats[]> => {
         include: {
           matchEvent: {
             where: {
-              type: "YELLOW_CARD" // Filtrer matchevents for å få bare mål
+              type: "YELLOW_CARD"
             }
           }
         }
       },
-      relatedClub: true // Inkluder klubbinformasjon
+      relatedClub: true
     }
   });
 
-  // Filtrer ut spillere med null mål
   const playersWithYellows = players.filter((player) => {
     const totalYellows = player.squadPlayer.reduce((total, squadPlayer) => {
       return total + squadPlayer.matchEvent.filter((event) => event.type === "YELLOW_CARD").length;

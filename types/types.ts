@@ -61,7 +61,7 @@ export type PlayerWithClub = {
   id: number;
   firstName: string;
   lastName: string;
-  club: Club | null; // Oppdater til å inkludere klubben eller null
+  club: Club | null;
 };
 
 

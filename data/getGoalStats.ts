@@ -6,23 +6,22 @@ interface PlayerGoalStats {
   goals: number;
 }
 
-export const getPlayerStats = async (): Promise<PlayerGoalStats[]> => {
+export const getGoalStats = async (): Promise<PlayerGoalStats[]> => {
   const players = await db.player.findMany({
     include: {
       squadPlayer: {
         include: {
           matchEvent: {
             where: {
-              type: "GOAL" // Filtrer matchevents for å få bare mål
+              type: "GOAL"
             }
           }
         }
       },
-      relatedClub: true // Inkluder klubbinformasjon
+      relatedClub: true 
     }
   });
 
-  // Filtrer ut spillere med null mål
   const playersWithGoals = players.filter((player) => {
     const totalGoals = player.squadPlayer.reduce((total, squadPlayer) => {
       return total + squadPlayer.matchEvent.filter((event) => event.type === "GOAL").length;

@@ -13,16 +13,15 @@ export const getRedStats = async (): Promise<PlayerRedStats[]> => {
         include: {
           matchEvent: {
             where: {
-              type: "RED_CARD" // Filtrer matchevents for å få bare mål
+              type: "RED_CARD"
             }
           }
         }
       },
-      relatedClub: true // Inkluder klubbinformasjon
+      relatedClub: true
     }
   });
 
-  // Filtrer ut spillere med null mål
   const playersWithReds = players.filter((player) => {
     const totalReds = player.squadPlayer.reduce((total, squadPlayer) => {
       return total + squadPlayer.matchEvent.filter((event) => event.type === "RED_CARD").length;
