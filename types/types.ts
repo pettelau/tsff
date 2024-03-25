@@ -36,6 +36,22 @@ export type ServiceMenuT = {
   hideIfNoClub: boolean;
 };
 
+export type PlayerStats = {
+  id: number
+  firstName: string;
+  lastName: string;
+  clubName: string | null;
+  count: number;
+}
+
+export type PlayerWithClub = {
+  id: number;
+  firstName: string;
+  lastName: string | null;
+  club: Club | null;
+};
+
+
 export enum MatchState {
   NOT_STARTED,
   ONGOING,
