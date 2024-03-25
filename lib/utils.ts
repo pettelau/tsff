@@ -2,6 +2,7 @@ import { MatchState, RecipientGroup } from "@/types/types";
 import {
   GenderType,
   Match,
+  Player,
   SemesterType,
   User,
   UserRole,
@@ -17,6 +18,7 @@ import {
 } from "date-fns";
 import { nb } from "date-fns/locale";
 import { twMerge } from "tailwind-merge";
+import { positionsMap } from "./enum-mappings";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -146,4 +148,39 @@ export const filterUserIdsByRecipientGroup = (
     default:
       return [];
   }
+};
+
+export const groupPlayersByPosition = (players: Player[]) => {
+  const grouped = players.reduce<Record<string, Player[]>>((acc, player) => {
+    const positionKey = player.position || "UNKNOWN"; // Use 'UNKNOWN' as a key for players with null position
+    if (!acc[positionKey]) {
+      acc[positionKey] = [];
+    }
+    acc[positionKey].push(player);
+    return acc;
+  }, {});
+
+  // Add label and order for sorting
+  const groupedWithLabels = Object.keys(grouped).map((positionKey) => {
+    // Handle 'UNKNOWN' separately to avoid TypeScript error
+    if (positionKey === "UNKNOWN") {
+      return {
+        position: positionKey,
+        label: "Ingen posisjon",
+        order: Number.MAX_SAFE_INTEGER, // Place 'Ingen posisjon' last
+        players: grouped[positionKey],
+      };
+    }
+    // For known positions, access positionsMap safely
+    const positionInfo = positionsMap[positionKey as keyof typeof positionsMap];
+    return {
+      position: positionKey,
+      label: positionInfo.label,
+      order: positionInfo.order,
+      players: grouped[positionKey],
+    };
+  });
+
+  // Sort based on order
+  return groupedWithLabels.sort((a, b) => a.order - b.order);
 };
