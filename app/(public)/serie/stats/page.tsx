@@ -6,6 +6,7 @@ import {
 import { StatsTable } from "@/app/components/stats/StatsTable";
 import { matchEventTypesList } from "@/lib/enum-mappings";
 
+// All stats
 const StatsPage = async () => {
 
   const statsData = await Promise.all(
