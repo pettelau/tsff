@@ -3,13 +3,10 @@ import {
   PlayerMatchEventStats,
   getMatchEventStats,
 } from "@/data/getMatchEventStats";
-import { getPlayersWithClubs } from "@/data/getPlayersWithClubs";
 import { StatsTable } from "@/app/components/stats/StatsTable";
-import { PlayerStats } from "@/types/types";
 import { matchEventTypesList } from "@/lib/enum-mappings";
 
 const StatsPage = async () => {
-  const playersWithClubs = await getPlayersWithClubs();
 
   const statsData = await Promise.all(
     matchEventTypesList.map(async ({ type }) => {
