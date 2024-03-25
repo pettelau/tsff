@@ -21,7 +21,7 @@ const CompetitionLayout = async ({ children }: CompetitionLayoutProps) => {
         </div>
         <div>{children}</div>
       </div>
-      <div className="w-1/3 flex-col items-center justify-center hidden sm:flex space-y-2">
+      <div className="w-1/3 flex-col items-center hidden sm:flex space-y-1">
         {activeCompetitions.map(async (comp) => {
           const compMatches = await getCompetitionMatchesWithResults(comp.id);
           const compClubs = await getCompetitionClubs(comp.id);
