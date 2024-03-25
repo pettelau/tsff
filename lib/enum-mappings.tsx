@@ -42,18 +42,33 @@ export const positionsList = Object.entries(positionsMap).map(
 ) satisfies { type: string; label: string; order: number }[];
 
 export const matchEventTypesMap = {
-  [MatchEventType.GOAL]: { label: "Mål", icon: <IoIosFootball /> },
-  [MatchEventType.RED_CARD]: { label: "Rødt kort", icon: <RedCard /> },
-  [MatchEventType.YELLOW_CARD]: { label: "Gult kort", icon: <YellowCard /> },
-} satisfies Record<MatchEventType, { label: string; icon: JSX.Element }>;
+  [MatchEventType.GOAL]: {
+    label: "Mål",
+    icon: <IoIosFootball />,
+    statLabel: "Toppscorer",
+  },
+  [MatchEventType.RED_CARD]: {
+    label: "Rødt kort",
+    icon: <RedCard />,
+    statLabel: "Røde kort",
+  },
+  [MatchEventType.YELLOW_CARD]: {
+    label: "Gult kort",
+    icon: <YellowCard />,
+    statLabel: "Gule kort",
+  },
+} satisfies Record<
+  MatchEventType,
+  { label: string; icon: JSX.Element; statLabel: string }
+>;
 
 export const matchEventTypesList = Object.entries(matchEventTypesMap).map(
-  ([type, { label, icon }]) => ({
+  ([type, { label, statLabel }]) => ({
     type,
     label,
-    icon,
+    statLabel,
   }),
-) satisfies { type: string; label: string; icon: JSX.Element }[];
+) satisfies { type: string; label: string; statLabel: string }[];
 
 export const venuesMap = {
   [Venue.TEMPE_HOVEDBANE]: { label: "Tempe hovedbane" },
