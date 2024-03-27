@@ -65,7 +65,7 @@ const MatchPage = async ({ params: params }: MatchPageProps) => {
         homeSquad &&
         awaySquad && (
           <div className="flex flex-col justify-center space-y-2">
-            {(canEditHome || canEditAway) && (
+            {user && !match.isMatchEventsConfirmed && (
               <EditMatchGoalsModal
                 homeGoals={match.homeGoals}
                 awayGoals={match.awayGoals}
