@@ -22,6 +22,7 @@ import { EditMatchEventsModal } from "@/app/components/matches/EditMatchEventsMo
 import { getClubPlayers } from "@/data/getClubPlayers";
 import { Suspense } from "react";
 import { EditMatchSquadModal } from "@/app/components/matches/EditMatchSquadModal";
+import { EditMatchGoalsModal } from "@/app/components/matches/EditMatchGoalsModal";
 
 type MatchPageProps = {
   params: { id: string };
@@ -65,9 +66,11 @@ const MatchPage = async ({ params: params }: MatchPageProps) => {
         awaySquad && (
           <div className="flex flex-col justify-center space-y-2">
             {(canEditHome || canEditAway) && (
-              <Button size="sm" className="w-fit mx-auto" variant="bordered">
-                Endre kampresultat
-              </Button>
+              <EditMatchGoalsModal
+                homeGoals={match.homeGoals}
+                awayGoals={match.awayGoals}
+                matchId={match.id}
+              />
             )}
             <MatchEvents
               matchEvents={matchEvents}

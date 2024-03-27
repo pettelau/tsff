@@ -84,3 +84,8 @@ export const SquadSchema = z.object({
   playerIds: z.array(z.string()),
   squadId: z.number(),
 });
+
+export const MatchGoalsSchema = z.object({
+  homeGoals: z.union([z.number().min(1), z.null()]),
+  awayGoals: z.union([z.number().min(1), z.null()]),
+});
