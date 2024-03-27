@@ -8,25 +8,19 @@ import {
   ModalBody,
   ModalContent,
   ModalHeader,
-  Select,
-  SelectItem,
   useDisclosure,
 } from "@nextui-org/react";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useState, useTransition } from "react";
-import axios, { AxiosError } from "axios";
+import axios from "axios";
 
 import { ExtendedMatchSquad } from "@/data/getExtendedMatchSquads";
-import { useCurrentUser } from "@/hooks/use-current-user";
 import { Controller, useForm } from "react-hook-form";
-import { NewMatchEventSchema, SquadSchema } from "@/schemas";
+import { SquadSchema } from "@/schemas";
 
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { MatchEventType, Player } from "@prisma/client";
-import { matchEventTypesList } from "@/lib/enum-mappings";
-import { Alert } from "../Alert";
-import { groupPlayersByPosition } from "@/lib/utils";
+import { Player } from "@prisma/client";
 
 type EditMatchSquadModalProps = {
   allClubPlayers: Player[];
@@ -39,8 +33,6 @@ export const EditMatchSquadModal = ({
   children,
 }: EditMatchSquadModalProps) => {
   const router = useRouter();
-
-  const user = useCurrentUser();
 
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -142,11 +134,6 @@ export const EditMatchSquadModal = ({
                 </CheckboxGroup>
               )}
             />
-            {error && (
-              <Alert variant="danger" title="Kunne ikke oppdatere tropp">
-                <>{error}</>
-              </Alert>
-            )}
           </ModalBody>
         </ModalContent>
       </Modal>
