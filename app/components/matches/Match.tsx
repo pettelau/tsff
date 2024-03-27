@@ -1,7 +1,7 @@
 import { ExtendedMatch } from "@/data/getClubMatches";
 import { competitionTypesMap } from "@/lib/enum-mappings";
 import { formatDateVerbose } from "@/lib/utils";
-import { Card } from "@nextui-org/react";
+import { Card, Link } from "@nextui-org/react";
 import { StatusMatch } from "./StatusMatch";
 import { getYear } from "date-fns";
 
@@ -45,11 +45,10 @@ export const Match = ({
       <div className="flex flex-row w-full items-center text-xs sm:text-sm">
         <div className="text-right flex-1">{match.homeTeam.name}</div>
 
-        <StatusMatch
-          viewAsClubId={viewAsClubId ? viewAsClubId : null}
-          match={match}
-        />
-
+          <StatusMatch
+            viewAsClubId={viewAsClubId ? viewAsClubId : null}
+            match={match}
+          />
         <div className="text-left flex-1">{match.awayTeam.name}</div>
       </div>
     </div>

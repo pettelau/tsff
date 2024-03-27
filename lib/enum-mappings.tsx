@@ -63,12 +63,18 @@ export const matchEventTypesMap = {
 >;
 
 export const matchEventTypesList = Object.entries(matchEventTypesMap).map(
-  ([type, { label, statLabel }]) => ({
+  ([type, { label, icon, statLabel }]) => ({
     type,
     label,
+    icon,
     statLabel,
   }),
-) satisfies { type: string; label: string; statLabel: string }[];
+) satisfies {
+  type: string;
+  label: string;
+  icon: JSX.Element;
+  statLabel: string;
+}[];
 
 export const venuesMap = {
   [Venue.TEMPE_HOVEDBANE]: { label: "Tempe hovedbane" },
