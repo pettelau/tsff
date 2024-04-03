@@ -17,7 +17,6 @@ import { NIFSchema } from "@/schemas";
 import { updateNIFData } from "@/actions/update-NIF-data";
 import { z } from "zod";
 import { useRouter } from "next/navigation";
-import { Alert } from "@/app/components/Alert";
 
 export const NIFUpload = () => {
   const router = useRouter();
@@ -116,23 +115,7 @@ export const NIFUpload = () => {
               onChange={handleFileUpload}
               disabled={isPending}
             />
-            {error ? (
-              <Alert
-                variant="danger"
-                title="Kunne ikke oppdatere spillerdatabasen"
-              >
-                <>{error}</>
-              </Alert>
-            ) : (
-              success && (
-                <Alert variant="success" title="Databasen ble oppdatert">
-                  <>
-                    {rowsAdded} spillere ble lagt til, og {rowsUpdated} ble
-                    oppdatert!
-                  </>
-                </Alert>
-              )
-            )}
+
           </ModalBody>
           <ModalFooter>
             <Button onClick={onClose} isDisabled={isPending}>

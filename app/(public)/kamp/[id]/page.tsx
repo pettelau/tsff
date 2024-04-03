@@ -20,6 +20,9 @@ import { currentUser } from "@/lib/auth";
 import { UserRole } from "@prisma/client";
 import { EditMatchEventsModal } from "@/app/components/matches/EditMatchEventsModal";
 import { getClubPlayers } from "@/data/getClubPlayers";
+import { Suspense } from "react";
+import { EditMatchSquadModal } from "@/app/components/matches/EditMatchSquadModal";
+import { EditMatchGoalsModal } from "@/app/components/matches/EditMatchGoalsModal";
 
 type MatchPageProps = {
   params: { id: string };
@@ -43,9 +46,13 @@ const MatchPage = async ({ params: params }: MatchPageProps) => {
   const awayClubPlayers = await getClubPlayers(match.awayClubId);
 
   const canEditHome =
-    user && (user.role === UserRole.ADMIN || user.club === match.homeClubId);
+    user &&
+    (user.role === UserRole.ADMIN || user.club === match.homeClubId) &&
+    !match.isMatchEventsConfirmed;
   const canEditAway =
-    user && (user.role === UserRole.ADMIN || user.club === match.awayClubId);
+    user &&
+    (user.role === UserRole.ADMIN || user.club === match.awayClubId) &&
+    !match.isMatchEventsConfirmed;
 
   return (
     <Card className="flex flex-col justify-center space-y-4 w-full px-1 sm:px-6 py-4 max-w-3xl">
@@ -57,26 +64,39 @@ const MatchPage = async ({ params: params }: MatchPageProps) => {
         !isFuture(match.kickoffTime) &&
         homeSquad &&
         awaySquad && (
-          <div>
+          <div className="flex flex-col justify-center space-y-2">
+            {user && !match.isMatchEventsConfirmed && (
+              <EditMatchGoalsModal
+                homeGoals={match.homeGoals}
+                awayGoals={match.awayGoals}
+                matchId={match.id}
+              />
+            )}
             <MatchEvents
               matchEvents={matchEvents}
               homeClubId={match.homeClubId}
               awayClubId={match.awayClubId}
             />
-            {(canEditHome || canEditAway) && (
-              <div className="flex flex-row justify-between space-x-4 pt-3">
-                <div className={canEditHome ? "" : "hidden"}>
+            <div
+              className={`flex flex-row pt-3 ${
+                canEditHome ? "justify-between" : "justify-end"
+              }`}
+            >
+              {canEditHome && (
+                <div>
                   <EditMatchEventsModal squad={homeSquad}>
                     <>{match.homeTeam.name} - Ny hendelse</>
                   </EditMatchEventsModal>
                 </div>
-                <div className={canEditAway ? "" : "hidden"}>
+              )}
+              {canEditAway && (
+                <div>
                   <EditMatchEventsModal squad={awaySquad}>
                     <>{match.awayTeam.name} - Ny hendelse</>
                   </EditMatchEventsModal>
                 </div>
-              </div>
-            )}
+              )}
+            </div>
           </div>
         )}
       <Divider />

@@ -1,9 +1,11 @@
 import { ExtendedMatch } from "@/data/getClubMatches";
 import { competitionTypesMap, venuesMap } from "@/lib/enum-mappings";
 import { formatDateVerbose, getCurrentSeason } from "@/lib/utils";
-import { getHours, getMinutes } from "date-fns";
+import { format, getHours, getMinutes } from "date-fns";
 import { FaRegCalendarAlt } from "react-icons/fa";
 import { MdStadium } from "react-icons/md";
+
+import { nb } from "date-fns/locale";
 
 type MatchMetadataProps = {
   match: ExtendedMatch;
@@ -30,12 +32,9 @@ export const MatchMetadata = ({ match: match }: MatchMetadataProps) => {
           <div>
             {match.kickoffTime ? (
               <>
-                {formatDateVerbose(match.kickoffTime)}{" "}
-                {getHours(new Date(match.kickoffTime))}:
-                {String(getMinutes(new Date(match.kickoffTime))).padStart(
-                  2,
-                  "0",
-                )}
+                {format(new Date(match.kickoffTime), "dd. MMM yyyy", {
+                  locale: nb,
+                })}
               </>
             ) : (
               "KO ikke satt"

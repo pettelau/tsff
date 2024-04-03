@@ -35,7 +35,7 @@ export const EventSection = ({
   awayClubId,
   icon,
 }: EventSectionProps) => (
-  <div className="flex flew-row w-full justify-center space-x-6">
+  <div className="flex flew-row w-full justify-center">
     <div className="flex-1 text-right">
       {events
         .filter((event) => event.squadPlayer.squad.clubId === homeClubId)
@@ -46,8 +46,8 @@ export const EventSection = ({
           </div>
         ))}
     </div>
-    <div className="flex flex-col items-center pt-[3px]">
-      <div className="w-full text-center">{icon}</div>
+    <div className="w-[50px] flex flex-col items-center justify-center text-center pt-[3px]">
+      <div className="flex w-full items-center justify-center text-center">{icon}</div>
     </div>
     <div className="flex-1 text-left">
       {events

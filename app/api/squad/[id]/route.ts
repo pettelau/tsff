@@ -40,7 +40,7 @@ export const POST = async (
     return NextResponse.json({ error: "Bad request" }, { status: 400 });
   }
 
-  if (dbUser.role !== UserRole.ADMIN && player.id !== dbUser.clubId) {
+  if (dbUser.role !== UserRole.ADMIN && player.clubId !== dbUser.clubId) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 

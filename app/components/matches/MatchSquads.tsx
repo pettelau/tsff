@@ -70,7 +70,7 @@ export const MatchSquads = async ({
         <div className="flex flex-col space-y-2 text-xs sm:text-sm font-light">
           {canEditAway && (
             <EditMatchSquadModal
-              allClubPlayers={homeClubPlayers}
+              allClubPlayers={awayClubPlayers}
               squad={awaySquad}
             >
               <>Endre bortetropp</>
