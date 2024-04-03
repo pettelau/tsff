@@ -27,7 +27,6 @@ import { useRouter } from "next/navigation";
 import { useCallback, useState, useTransition } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { z } from "zod";
-import { Alert } from "../Alert";
 
 type FormDataProps = {
   title: string;
@@ -199,22 +198,7 @@ export const CreateNotificationModal = ({
                   }}
                 />
               )}
-              {error ? (
-                <Alert
-                  variant="danger"
-                  title="Kunne ikke oppdatere spillerdatabasen"
-                >
-                  <>{error}</>
-                </Alert>
-              ) : (
-                success && (
-                  <Alert variant="success">
-                    <>
-                      Beskjeden ble opprettet!
-                    </>
-                  </Alert>
-                )
-              )}
+
               <Button type="submit" color="primary" isDisabled={isPending}>
                 Opprett beskjed
               </Button>
