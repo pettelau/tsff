@@ -69,3 +69,24 @@ body,
 .bg-yellow-transparent {
   background-color: rgba(255, 255, 0, 0.3);
 }
+.match-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 4px 0; /* Adjust as needed */
+}
+
+.match-teams {
+  margin: 0;
+  font-size: 14px; /* Adjust as needed */
+}
+
+.match-time {
+  margin: 0;
+  font-size: 12px; /* Adjust as needed */
+  color: gray; /* Optional: change the color if needed */
+}
+
+.empty-space {
+  min-height: 20px; /* Adjust to match the space of an actual match item */
+}

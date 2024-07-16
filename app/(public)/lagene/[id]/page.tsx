@@ -2,7 +2,7 @@ import { currentUser } from "@/lib/auth";
 import { getClubInfo } from "@/data/getClubInfo";
 import { getClubPlayers } from "@/data/getClubPlayers";
 import { UserRole, Club, Player } from "@prisma/client";
-import { Card, Divider } from "@nextui-org/react";
+import { Card } from "@nextui-org/react";
 import { getClubCompetitions } from "@/data/getClubCompetitions";
 import { getCompetitionMatchesWithResults } from "@/data/getCompetitionMatchesWithResults";
 import { getCompetitionClubs } from "@/data/getCompetitionClubs";
@@ -11,13 +11,14 @@ import { competitionTypesMap } from "@/lib/enum-mappings";
 import { getCurrentSeason } from "@/lib/utils";
 import { ClubCompetitionTableSmall } from "@/app/components/Clubs/ClubCompetitionTable-small";
 import { ClubPlayers } from "@/app/components/Clubs/ClubPlayers";
-import { SocialIcon } from 'react-social-icons';
+import { SocialIcon } from "react-social-icons";
+import { getFutureMatches } from "@/data/getFutureMatches";
 
 type ClubPageProps = {
   params: { id: string };
 };
 
-const ClubPage = async ({ params: params }: ClubPageProps) => {
+const ClubPage = async ({ params }: ClubPageProps) => {
   const clubId = Number(params.id);
 
   const user = await currentUser();
@@ -26,12 +27,47 @@ const ClubPage = async ({ params: params }: ClubPageProps) => {
   const clubPlayers = await getClubPlayers(clubId);
   const clubComp = await getClubCompetitions(clubId);
 
+  const futureMatches = await getFutureMatches(clubId);
+  const matchesToShow = futureMatches.slice(0, 5);
+
+  const instagram = clubData?.instagram;
+
+  const dateOptions: Intl.DateTimeFormatOptions = {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: false,  // 24-hour format
+    timeZone: 'Europe/Oslo' // Set the appropriate timezone
+  };
+
   return (
     <div className="flex flex-row items-stretch justify-center flex-grow max-w-screen-2xl sm:mx-6">
-      <Card className="flex flex-col w-full sm:w-2/3 p-4 dark">
-        {clubData?.name} <br /><br />
-        <SocialIcon url="https://www.instagram.com/tihlde_pythons/" className="" /> <br />
-        <ClubPlayers data={clubPlayers} name="Registered Players" />
+      <Card className="flex flex-row w-full sm:w-2/3 p-4 dark">
+        <div className="w-1/3 flex flex-col items-center justify-start dark">
+          {clubData?.name}
+          {instagram && <SocialIcon url={instagram} style={{ height: 30, width: 30 }} className="" />} <br />
+          <ClubPlayers data={clubPlayers} name="Registered Players" />
+        </div>
+        <div className="w-2/3 flex flex-col items-center justify-start dark space-y-2">
+          <h2>Upcoming Matches</h2>
+          {matchesToShow.length > 0 ? (
+            matchesToShow.map((match) => (
+              <div key={match.id} className="match-item">
+                <p className="match-teams">{`${match.homeTeam.name} vs ${match.awayTeam.name}`}</p>
+                <p className="match-time">{match.kickoffTime ? new Date(match.kickoffTime).toLocaleString('en-GB', dateOptions) : "Kickoff time not set"}</p>
+              </div>
+            ))
+          ) : (
+            <p>No upcoming matches</p>
+          )}
+          {Array.from({ length: 5 - matchesToShow.length }).map((_, index) => (
+            <div key={`empty-${index}`} className="match-item empty-space">
+              &nbsp;
+            </div>
+          ))}
+        </div>
       </Card>
       <Card className="w-1/3 flex-col items-center hidden sm:flex space-y-2 dark">
         {clubComp.map(async (comp) => {
